@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>Ryan Dew: Homepage</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+	
+	<link rel="stylesheet" href="style.css">
+    <link ref="icon" href="pmtfavicon.ico" type="image/x-icon" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,900|Roboto:300,400,500,600" rel="stylesheet">
+
+    <!--###########################
+    Expand/Collapse JS and CSS code for use
+    in the HEAD section of your document.
+    Written by Dick Ervasti. Learn More at:
+    http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
+    ##################################-->
+    <script type="text/javascript">
+    <!--
+        function expand_collapse(id) {
+           var e = document.getElementById(id);
+           var f = document.getElementById(id+"_collapse");
+           if(e.style.display == 'none'){
+              e.style.display = 'block';
+              f.innerHTML = 'Hide Abstract';
+           }
+           else {
+              e.style.display = 'none';
+              f.innerHTML = 'Show Abstract';
+           }
+        }
+    //-->
+    </script>
+    <style type="text/css">
+    .arrows{text-decoration:none;color:silver;}
+    </style>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-101743443-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+<body>
+<body>
+  <div class="nav-bar">
+	<center>
+	  	<div class="container">
+	  		<ul class="nav">
+	  			<li><t1>&nbsp;&nbsp;Ryan Dew&nbsp;&nbsp;</t1></li>
+	  			<li><a href="index.html">Home</a></li>
+	  			<li><a href="research.html">Research</a></li>
+	  			<li><a href="ryan_dew_cv.pdf">CV</a></li>
+	  		</ul>
+	  	</div>
+	</center>
+  </div>
+	<div class="content">
+		<center>
+			<div id="container">
+				<div id="research">
+				        <strong>Research Overview:</strong>
+				        <br><br>
+						I study how modern statistical and computational methods can enhance the capacity of marketing managers to make data-driven decisions. I am particularly interested in topics in marketing analytics, customer relationship management, and preference measurement, with a focus on understanding dynamics in consumer purchasing patterns. I am also interested in incorporating visual and textual data into marketing models, with a specific interest in understanding the interplay between the stated and visual identities of brands, and in bringing big data to bear on firms' design decisions. Methodologically, I focus on techniques from machine learning, Bayesian nonparametrics, and Bayesian econometrics. 
+						<br><br><br>
+
+						<strong>Publications:</strong>
+						<ul>
+						    <li><b>Bayesian Nonparametric Customer Base Analysis with Model-based Visualizations</b><br>Ryan Dew and Asim Ansari<br> Forthcoming at <i>Marketing Science</i>. <br>
+				                [<a href="#gppm-abstract" id="1_collapse" onclick="expand_collapse('1');">Show Abstract</a>] [<a href="https://ssrn.com/abstract=2692307" target="_blank">Paper</a>] [<a href="gppm.stan" target="_blank">Stan</a>]</a>   <br>
+
+				                <div id="1" style="display:none;"><blockquote>Modern marketers are responsible for understanding and managing customer spending behavior across many different products. Dynamics in spending result from both predictable customer-level effects, which are characterized by interpurchase time, customer lifetime, and past purchase frequency, as well as calendar time effects, which are driven by managerial actions such as product changes and promotions, and by general trends and random shocks. Understanding these dynamics in spending is further complicated by a lack of knowledge of all of the factors that influence spending for a given product, a problem exacerbated in large multiproduct firms by information asymmetries that can exist between the product teams that execute marketing actions and the marketing analytics team responsible for customer base analysis. A comprehensive understanding of customer base dynamics therefore requires a modeling framework that flexibly integrates both known and unknown calendar time determinants of spending with the individual-level effects that robustly predict spend activity. In this paper, we develop a Bayesian nonparametric framework based on Gaussian process priors to understand and predict customer spending. Our model separates out calendar time effects from individual-level dynamics by modeling both sets of factors as unknown latent functions that jointly determine spend propensity. The primary output of our Gaussian Process Propensity Model (GPPM) is a set of estimated curves that provides a visual and easily comprehensible representation of purchasing dynamics, which we call the model-based dashboard. We illustrate the utility of our modeling framework on data from two popular free-to-play mobile video games. We show how the GPPM's model-based dashboard can be useful for assessing patterns and disruptions in spending. We also show how the GPPM exhibits superior forecasting ability compared to existing customer base analysis benchmarks, including hazard and buy-till-you-die models.</blockquote></div></li><br>
+		  
+						</ul>
+		 
+						<strong>Working Papers:</strong> 
+						<ul>
+
+				        <li><b>Dynamic Preference Heterogeneity</b><br> Ryan Dew, Yang Li, Asim Ansari<br>Revision invited at <i>Journal of Marketing Research</i>. <br>
+				            [<a href="#hgp-abstract" id="2_collapse" onclick="expand_collapse('2');">Show Abstract</a>] [<a href="https://ssrn.com/abstract=2915632" target="_blank">Working Paper</a>]  <br>
+
+				            <div id="2" style="display:none;"><blockquote>Consumers' preferences change over time, often in tandem with population trends, but frequently exhibiting individual-specific idiosyncrasies. In this paper, we develop a novel Bayesian nonparametric framework based on Hierarchical Gaussian Processes (HGP) for modeling such dynamic heterogeneity. Our specification generalizes previous approaches for estimating dynamics that have been used in the marketing literature by flexibly capturing both the evolution of population trends and individual-level departures from those trends. This allows for sharing of statistical information across individuals, and within individuals over time, and provides rich individual-level insights and efficient inferences regarding preference evolution. We showcase our HGP specification in a choice modeling context, using simulations and real data from two CPG categories. We find that commonly used heterogeneity specifications can lead to significant biases or inefficiencies when dynamic heterogeneity is present, and are unable to represent managerially relevant individual-level parameter trajectories. Our application uncovers robust evidence of dynamic heterogeneity during the Great Recession, and important individual-specific trends that can be leveraged by retailers for optimal targeted pricing.
+				</blockquote></div></li><br>
+
+				      </ul>
+
+				      <strong>Research in Progress:</strong>
+				      <ul>
+				        <li><b>Letting Logos Speak: Deep, Probabilistic Models for Logo Design</b><br>Ryan Dew, Asim Ansari, Olivier Toubia<br>
+				          [<a href="#logos-abstract" id="3_collapse" onclick="expand_collapse('3');">Show Abstract</a>]  <br>
+
+				          <div id="3" style="display:none;"><blockquote>Logos serve a fundamental role in branding as the visual figurehead of the brand. Yet, due to the difficulty of using unstructured image data, prior research on logo design has been largely limited to non-quantitative studies. In this work, we explore logo design from a data-driven perspective. In particular, we aim to answer several key questions: first, to what degree can logos represent a brand's personality? Second, what are the key visual elements in logos that elicit brand and firm relevant associations, such as brand personality traits? Finally, given text describing a firm's brand or function, can we suggest features of a logo that elicit the firm's desired image? To answer these questions, we develop both a novel logo tokenization algorithm, that uses modern image processing tools to decompose unstructured pixel-level image data into meaningful visual features, and a novel probabilistic model, which we term Guided Deep Gamma Trees (GDGT), which links those visual tokens with textual descriptions of firms. Our model extends existing models for text and recommendation systems, such as LDA and Poisson factorization, by learning associations between text and visual features at differing levels of abstraction, via sets of latent factors that explain feature co-occurrences. Moreover, our model adds an additional layer of supervision that guides the learned latent factors to also explain consumers' perceptions of brand personality. The outcome of GDGT is a synthesis of both textual and image data, that allows interpretable textual topics to be used to answer questions about visual meaning, and that allows us to infer prototypical logos corresponding to given textual descriptions. We apply our modeling framework on a dataset of hundreds of logos, textual descriptions from firms' websites, third party descriptions of firms, and consumer evaluations of brand personality to explore the above questions.</blockquote></div></li><br>
+
+				        <li><b>Customer-Centric Data Fusion</b><br>Ryan Dew and Oded Netzer<br>
+				            [<a href="#ccdf-abstract" id="4_collapse" onclick="expand_collapse('4');">Show Abstract</a>]<br>
+    
+				            <div id="4" style="display:none;"><blockquote>Marketers face a deluge of data on all aspects of their customers, including what they are buying, how they are using their products, and what they are saying about their purchases. We seek to address the problem of understanding general patterns across many modes of customer behavior, by modeling consumers through a set of latent, inferred personas that are related to behaviors across all domains of interest. Our customer-centric approach allows firms to leverage data across domains, even in the presence of missing data, to better understand and predict customer behavior in any particular domain, using existing probabilistic models of customer behavior. We illustrate the expressive capacity and managerial utility of such a framework through an application to rental car transaction and textual feedback data.<br><br>This work was a winner of the Deming Center's 2016 Doctoral Fellowship.</blockquote></div></li><br>
+
+				        <li><b>Scalable Decision Support Systems for Robust CRM</b><br>Ryan Dew and Asim Ansari<br>
+				            [<a href="#scrm-abstract" id="5_collapse" onclick="expand_collapse('5');">Show Abstract</a>]  <br>
+
+				            <div id="5" style="display:none;"><blockquote>Modern machine learning methods provide a powerful basis on which to build decision support systems for customer relationship management, yet many of the most flexible and comprehensive of these methods are computationally complex or slow to estimate on very large datasets. In particular, hierarchical models that capture the individual-level heterogeneity that is crucial for CRM and targeted marketing can suffer from scalability problems. In this work, we develop and apply methods for scalable, approximate inference using stochastic gradient methods, that allows robust and hierarchical decision support systems, such as the recently developed Gaussian process propensity model (GPPM), to be scaled to very large datasets. In particular, we show that use of stochastic gradient inference methods allows accurate and fast estimation of complex CRM models like the GPPM, which in turn facilitates two previously difficult forms of analysis: first, models can be fit to more subsets of the customer base, allowing for nuanced understanding of differences across acquisition channel and customer characteristics. Second, the model can be automatically adjusted to new settings, where more expressive structure is needed to understand customer spending behavior.</blockquote></div></li><br>
+							
+						<li><b>Bayesian Optimization of Online Ad Bidding</b><br>Ryan Dew and Kinshuk Jerath<br>
+				            [<a href="#bids-abstract" id="6_collapse" onclick="expand_collapse('6');">Show Abstract</a>]  <br>
+
+				            <div id="6" style="display:none;">
+								<blockquote>Bidding arises in many aspects of digital advertising. While theory suggests optimal bidding strategies, in practice, firms use a variety of heuristics to set their bids. This approach is often based on guesswork, without learning over time. In this work, we investigate an alternative approach, rooted in Gaussian Process-based Bayesian optimization, where we explore the space of possible bids, while exploiting the information we acquire. Unlike in more classical multi-armed bandit settings, in bidding, the space of actions is continuous, which poses a unique methodological challenge for online optimization.</blockquote>
+							</div>
+						</li><br>
+						</ul>
+				  </div>
+				</div>
+			</div>
+		</center>
+	</div>
+</body>
+</html>
+
+
+        <!--  -->
