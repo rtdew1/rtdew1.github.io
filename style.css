@@ -14,8 +14,8 @@ body {
     font-size: 1em;
 	margin: 0;
 	color: #333;
-	font-family: 'Open Sans'; 
-	font-weight: 400;
+	font-family: 'Roboto'; 
+	font-weight: 300;
 }
 
 h1,h2,h3,h4,h5,h6
@@ -133,7 +133,7 @@ Nav
 	font-size: 20pt;
 	padding: .7em 1.25em;
 	color: #fff;
-	font-family: Open Sans;
+	font-family: Roboto;
 	font-weight: 900;
 	border-bottom: 1px solid gray;
 }
@@ -145,6 +145,7 @@ Nav
 	color: #fff;
 	text-decoration: none;
 	border-bottom: 1px solid gray;
+	font-weight: 400px;
 }
 
 .nav a:link { color: white; }
@@ -182,7 +183,7 @@ Single styles
 	display: inline-block;
 	padding: .5em 1em;
 	margin-bottom: 0;
-	font-weight: 400;
+	font-weight: 300;
 	line-height: 1.2;
 	text-align: center;
 	white-space: nowrap;
@@ -245,13 +246,13 @@ Single styles
 #tab1 {border: 1px solid black;}
 #tdright {text-align: right;}
 table {
-	font-family: 'Open Sans'; 
-	font-weight: 400;
+	font-family: 'Roboto'; 
+	font-weight: 300;
 	max-width: 900px;
 }
 p {
-	font-family: 'Open Sans'; 
-	font-weight: 400;
+	font-family: 'Roboto'; 
+	font-weight: 300;
 	margin: 0 0 1.5em;
 }
 #container {
@@ -282,10 +283,10 @@ p {
 	padding-right: 5%;
 }
 
-t1 {font-family: 'Roboto'; font-weight: 900;}
-t2 {font-family: 'Open Sans'; font-weight: 600;}
-b {font-weight: 400;}
-strong {font-family: 'Roboto'; font-weight: 700;}
+t1 {font-family: 'Open Sans'; font-weight: 900;}
+t2 {font-family: 'Roboto'; font-weight: 500;}
+b {font-weight: 300;}
+strong {font-family: 'Open Sans'; font-weight: 700;}
 tiny {font-size: 5pt;}
 
 a:link {color:#777777;}
@@ -347,6 +348,7 @@ a:active {color: rgb(0, 136, 255); text-decoration:none;}
 		display: inline;
 		padding: 0;
 		border-bottom: 0;
+		font-weight: 500;
 	}
 	
 	#left {
