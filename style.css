@@ -15,7 +15,7 @@ body {
 	margin: 0;
 	color: #333;
 	font-family: 'Roboto'; 
-	font-weight: 300;
+	font-weight: 400;
 }
 
 h1,h2,h3,h4,h5,h6
@@ -30,7 +30,7 @@ h2 { font-size: 1.75em; } /* 28px */
 h3 { font-size: 1.375em; } /* 22px */
 h4 { font-size: 1.125em; } /* 18px */
 h5 { font-size: 1em; } /* 16px */
-h6 { font-size: .875em; } /* 14px */
+h6 { font-size: 1em; } /* 14px */
 
 
 blockquote
@@ -71,7 +71,7 @@ Layout styles
 
 .container
 {
-	max-width: 700px;
+	max-width: 900px;
 	margin: 0;
 }
 
@@ -130,7 +130,7 @@ Nav
 {
 	display: block;
 	margin: 0;
-	font-size: 16pt;
+	font-size: 20pt;
 	padding: .7em 1.25em;
 	color: #fff;
 	font-family: Roboto;
@@ -246,16 +246,16 @@ Single styles
 #tdright {text-align: right;}
 table {
 	font-family: 'Roboto'; 
-	font-weight: 300;
-	max-width: 700px;
+	font-weight: 400;
+	max-width: 900px;
 }
 p {
 	font-family: 'Roboto'; 
-	font-weight: 300;
+	font-weight: 400;
 	margin: 0 0 1.5em;
 }
 #container {
-	max-width: 700px;
+	max-width: 900px;
 	text-align: left;
 }
 #content
