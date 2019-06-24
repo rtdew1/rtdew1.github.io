@@ -1,17 +1,12 @@
 functions{
   // Squared exponential kernel
-  real se_k(real x, real y, real var, real l_sq){
-    return var * exp(-((x-y)^2)/l_sq);
+  real se_k(real x, real y, real sigma_sq, real l_sq){
+    return sigma_sq * exp(-((x-y)^2)/l_sq);
   }
   
   // Periodic variant of SE kernel
-  real periodic_se_k(real x, real y, real c, real var, real l_sq){
-    return var * exp(-2*(sin(pi()*(x-y)/c))^2 / l_sq);
-  }
-  
-  // Linear kernel
-  real lin_k(real x, real y, real var){
-    return var*x*y;
+  real periodic_se_k(real x, real y, real c, real sigma_sq, real l_sq){
+    return sigma_sq * exp(-2*(sin(pi()*(x-y)/c))^2 / l_sq);
   }
 }
 data{
@@ -25,7 +20,7 @@ data{
   int<lower=1> r[M];    // interpurchase time (recency)    
   int<lower=1> pnum[M]; // purchase number
   
-  int<lower=1> id[M]; // customer id of observation m
+  int<lower=1> id[M];   // customer id of observation m
 
   int<lower=0,upper=1> y[M]; // outcome of observation m (purchase or not)  
 }
@@ -89,26 +84,26 @@ transformed parameters{
 
 
   // add zero first period restriction
-  z[1] <- 0;
-  alpha_week <- append_row(z,free_week);
-  alpha_short <- append_row(z,free_short);
-  alpha_rec <- append_row(z,free_rec);
-  alpha_life <- append_row(z,free_life);
-  alpha_pnum <- append_row(z,free_pnum);	 
+  z[1] = 0;
+  alpha_week = append_row(z,free_week);
+  alpha_short = append_row(z,free_short);
+  alpha_rec = append_row(z,free_rec);
+  alpha_life = append_row(z,free_life);
+  alpha_pnum = append_row(z,free_pnum);	 
   
   
   // set mean functions
   for(p in 1:P)
 	{
-		rec_mean[p] <- lambda_rec1*(p-1)^lambda_rec2;
-		life_mean[p] <- lambda_life1*(p-1)^lambda_life2;
-		short_mean[p] <- 0;
-		long_mean[p] <- mu;
-		week_mean[p] <- 0;
+		rec_mean[p] = lambda_rec1*(p-1)^lambda_rec2;
+		life_mean[p] = lambda_life1*(p-1)^lambda_life2;
+		short_mean[p] = 0;
+		long_mean[p] = mu;
+		week_mean[p] = 0;
 	}
 	for(k in 1:K)
 	{
-	  pnum_mean[k] <- lambda_pnum1*(k-1)^lambda_pnum2;
+	  pnum_mean[k] = lambda_pnum1*(k-1)^lambda_pnum2;
 	}
 }
 model{
@@ -132,13 +127,13 @@ model{
   {
     for(j in 1:P)
     {
-      Sigma_week[i,j] <- etasq_week * exp(-2*(sin(pi()*(i-j)/7))^2/rhosq_week);
-      Sigma_week[j,i] <- Sigma_week[i,j];
+      Sigma_week[i,j] = etasq_week * exp(-2*(sin(pi()*(i-j)/7))^2/rhosq_week);
+      Sigma_week[j,i] = Sigma_week[i,j];
     }
-    Sigma_week[i,i] <- Sigma_week[i,i]+0.0001;
+    Sigma_week[i,i] = Sigma_week[i,i]+0.0001;
   }
 
-  L_week <- cholesky_decompose(Sigma_week);
+  L_week = cholesky_decompose(Sigma_week);
 
 
   // calendar time, short-run component kernel
@@ -146,13 +141,13 @@ model{
   {
     for(j in 1:P)
     {
-      Sigma_short[i,j] <- etasq_short * exp(-((i-j)^2)/rhosq_cal[1]);
-      Sigma_short[j,i] <- Sigma_short[i,j];
+      Sigma_short[i,j] = etasq_short * exp(-((i-j)^2)/rhosq_cal[1]);
+      Sigma_short[j,i] = Sigma_short[i,j];
     }
-    Sigma_short[i,i] <- Sigma_short[i,i]+0.0001;
+    Sigma_short[i,i] = Sigma_short[i,i]+0.0001;
   }
 
-  L_short <- cholesky_decompose(Sigma_short);
+  L_short = cholesky_decompose(Sigma_short);
 
 
   // calendar time, long-run component kernel
@@ -160,13 +155,13 @@ model{
   {
     for(j in 1:P)
     {
-      Sigma_long[i,j] <- etasq_long * exp(-((i-j)^2)/rhosq_cal[2]);
-      Sigma_long[j,i] <- Sigma_long[i,j];
+      Sigma_long[i,j] = etasq_long * exp(-((i-j)^2)/rhosq_cal[2]);
+      Sigma_long[j,i] = Sigma_long[i,j];
     }
-    Sigma_long[i,i] <- Sigma_long[i,i]+0.0001;
+    Sigma_long[i,i] = Sigma_long[i,i]+0.0001;
   }
 
-  L_long <- cholesky_decompose(Sigma_long);
+  L_long = cholesky_decompose(Sigma_long);
 
 
   // recency kernel
@@ -174,13 +169,13 @@ model{
   {
     for(j in 1:P)
     {
-      Sigma_rec[i,j] <- etasq_rec * exp(-((i-j)^2)/rhosq_rec);
-      Sigma_rec[j,i] <- Sigma_rec[i,j];
+      Sigma_rec[i,j] = etasq_rec * exp(-((i-j)^2)/rhosq_rec);
+      Sigma_rec[j,i] = Sigma_rec[i,j];
     }
-    Sigma_rec[i,i] <- Sigma_rec[i,i]+0.0001;
+    Sigma_rec[i,i] = Sigma_rec[i,i]+0.0001;
   }
 
-  L_rec <- cholesky_decompose(Sigma_rec);
+  L_rec = cholesky_decompose(Sigma_rec);
 
 
   // lifetime kernel
@@ -188,13 +183,13 @@ model{
   {
     for(j in 1:P)
     {
-      Sigma_life[i,j] <- etasq_life * exp(-((i-j)^2)/rhosq_life);
-      Sigma_life[j,i] <- Sigma_life[i,j];
+      Sigma_life[i,j] = etasq_life * exp(-((i-j)^2)/rhosq_life);
+      Sigma_life[j,i] = Sigma_life[i,j];
     }
-    Sigma_life[i,i] <- Sigma_life[i,i]+0.0001;
+    Sigma_life[i,i] = Sigma_life[i,i]+0.0001;
   }
 
-  L_life <- cholesky_decompose(Sigma_life);
+  L_life = cholesky_decompose(Sigma_life);
 
 
   // pnum kernel
@@ -202,13 +197,13 @@ model{
   {
     for(j in 1:K)
     {
-      Sigma_pnum[i,j] <- etasq_pnum * exp(-((i-j)^2)/rhosq_pnum);
-      Sigma_pnum[j,i] <- Sigma_pnum[i,j];
+      Sigma_pnum[i,j] = etasq_pnum * exp(-((i-j)^2)/rhosq_pnum);
+      Sigma_pnum[j,i] = Sigma_pnum[i,j];
     }
-    Sigma_pnum[i,i] <- Sigma_pnum[i,i]+0.0001;
+    Sigma_pnum[i,i] = Sigma_pnum[i,i]+0.0001;
   }
 
-  L_pnum <- cholesky_decompose(Sigma_pnum);
+  L_pnum = cholesky_decompose(Sigma_pnum);
 
 
   // kernel hyperparameter priors
@@ -256,7 +251,7 @@ model{
 
   // gppm likelihood
   for(m in 1:M)
-    theta[m] <- alpha_week[t[m]]+alpha_long[t[m]]+alpha_short[t[m]]+alpha_life[l[m]]+alpha_rec[r[m]]+alpha_pnum[pnum[m]]+delta[id[m]];
+    theta[m] = alpha_week[t[m]]+alpha_long[t[m]]+alpha_short[t[m]]+alpha_life[l[m]]+alpha_rec[r[m]]+alpha_pnum[pnum[m]]+delta[id[m]];
 
   y ~ bernoulli_logit(theta);
 }
