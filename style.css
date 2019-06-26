@@ -45,7 +45,7 @@ Layout styles
 
 .container
 {
-	max-width: 900px;
+	max-width: 750px;
 	margin: 0;
 }
 
@@ -160,7 +160,7 @@ Single styles
 table {
 	font-family: 'Lora', serif; 
 	font-weight: 400;
-	max-width: 900px;
+	max-width: 750px;
 }
 /*p {
 	font-family: 'Lora';
@@ -168,7 +168,7 @@ table {
 	margin: 0 0 1.5em;
 }*/
 #container {
-	max-width: 900px;
+	max-width: 750px;
 	text-align: left;
 }
 #content
