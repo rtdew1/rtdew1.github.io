@@ -196,10 +196,10 @@ table {
 }
 
 body {
-    background:#fff;
-    font-family: 'Lora'; font-weight: 400;
-    height:100%;
-    font-size: 0.9em;
+  background:#fff;
+  font-family: 'Lora'; font-weight: 400;
+  height:100%;
+  font-size: 0.9em;
 	margin: 0;
 	color: #333;
 }
@@ -209,7 +209,7 @@ b {font-family: 'Libre Franklin'; font-weight: 600; }
 strong {font-family: 'Lora'; font-weight: 600; font-size: 1.5em;}
 tiny {font-size: 5pt;}
 
-a:link {color:#777777; font-family: 'Libre Franklin'; font-weight: 400; font-size: 0.9em;}
+a:link {color:#777777; font-family: 'Libre Franklin'; font-weight: 400;}
 a:visited {color:#777777; text-decoration:none;}
 a:hover {color: rgb(0, 136, 255); text-decoration:none;}
 a:active {color: rgb(0, 136, 255); text-decoration:none;}
