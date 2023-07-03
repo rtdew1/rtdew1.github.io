@@ -80,6 +80,10 @@ Layout styles
 	padding: 1em 1.25em;
 }
 
+.adjust-line-height {
+	line-height: 2em;
+  }
+
 
 /* -----------------------
 Single styles
@@ -203,6 +207,8 @@ body {
 	margin: 0;
 	color: #333;
 }
+
+
 
 t1 {font-family: 'Libre Franklin'; font-weight: 700;}
 b {font-family: 'Libre Franklin'; font-weight: 600; } 

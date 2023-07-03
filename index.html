@@ -152,9 +152,9 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                     Methodologically, I am interested in Bayesian nonparametrics, Bayesian computation, deep generative
                     models, and representation learning. I'm honored to have received several awards for my research,
                     including the 2022 Frank M. Bass Award, the 2018 INFORMS Society for Marketing Science Doctoral
-                    Dissertation Award, and the 2018
-                    Marketing Section of the American Statistical Association's Doctoral Research Award, as well as to
-                    have been a finalist for the Paul Green Award.
+                    Dissertation Award, and the 2018 Marketing Section of the American Statistical Association's 
+                    Doctoral Research Award. Several of my papers have also been finalists for the Frank M. Bass and 
+                    Paul Green Awards.
                     <br>
                     <br>
                     <br>
@@ -167,9 +167,10 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <br>
                             <i>Marketing Science, 2018</i>
                             <br>
-                            <div>This paper was a finalist for the 2019 Frank M. Bass Award.</div>
+                            <ul><li>Finalist, 2019 Frank M. Bass Award</li></ul>
+                            <!-- <div>This paper was a finalist for the 2019 Frank M. Bass Award.</div> -->
                             [
-                            <a href="#gppm-abstract" id="1_collapse" onclick="expand_collapse('1');">Show Abstract</a>
+                            <a href="#gppm-abstract" id="gppm_collapse" onclick="expand_collapse('gppm');">Show Abstract</a>
                             ] [
                             <a href="https://ssrn.com/abstract=2692307" target="_blank">Paper</a>
                             ] [
@@ -180,7 +181,7 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <a href="gppm.stan" target="_blank">Stan Code</a>
                             ]
                             <br>
-                            <div id="1" style="display:none;">
+                            <div id="gppm" style="display:none;">
                                 <blockquote>Modern marketers are responsible for understanding and managing customer
                                     spending behavior across many different products. Dynamics in spending result from
                                     both predictable customer-level effects, which are characterized by interpurchase
@@ -217,14 +218,14 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <br>
                             <i>Journal of Marketing Research, 2020</i>
                             <br>
-                            <div>This paper was a finalist for the 2020 Paul Green Award.</div>
+                            <ul><li>Finalist, 2020 Paul Green Award</li></ul>
                             [
-                            <a href="#hgp-abstract" id="2_collapse" onclick="expand_collapse('2');">Show Abstract</a>
+                            <a href="#gpdh-abstract" id="gpdh_collapse" onclick="expand_collapse('gpdh');">Show Abstract</a>
                             ] [
                             <a href="gpdh_final_web.pdf" target="_blank">Paper</a>
                             ]
                             <br>
-                            <div id="2" style="display:none;">
+                            <div id="gpdh" style="display:none;">
                                 <blockquote>
                                     Marketing research relies on individual-level estimates to understand the rich
                                     heterogeneity that exists in consumers, firms, and products. While much of the
@@ -256,10 +257,12 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <br>
                             <i>Marketing Science, 2022</i>
                             <br>
-                            <div>This paper won the 2022 Frank M. Bass Award, and was a finalist for the John D.C.
-                                Little Award.</div>
+                            <ul>
+                                <li>Winner, 2022 Frank M. Bass Award</li>
+                                <li>Finalist, 2022 John D.C. Little Award</li>
+                            </ul>
                             [
-                            <a href="#logos-abstract" id="3_collapse" onclick="expand_collapse('3');">Show Abstract</a>
+                            <a href="#logos-abstract" id="logos_collapse" onclick="expand_collapse('logos');">Show Abstract</a>
                             ] [
                             <a href="http://ssrn.com/abstract=3406857" target="_blank">Paper</a>
                             ] [
@@ -269,7 +272,7 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                                 Generator</a>
                             ]
                             <br>
-                            <div id="3" style="display:none;">
+                            <div id="logos" style="display:none;">
                                 <blockquote>Logos serve a fundamental role in branding as the visual figurehead of the
                                     brand. Yet, due to the difficulty of using unstructured image data, prior research
                                     on logo design has been largely limited to non-quantitative studies. In this work,
@@ -291,38 +294,39 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                         </li>
                         <br>
                         <li>
-                            <b>Detecting Routines in Ride-sharing: Implications For Customer Management</b>
+                            <b>Detecting Routines: Applications to Ridesharing CRM</b>
                             <br>
                             Ryan Dew, Eva Ascarza, Oded Netzer, and Nachum Sicherman
-                        </li>
-                        <i>Forthcoming, Journal of Marketing Research</i>
-                        <br>
-                        [
-                        <a href="#routines-abstract" id="routines_collapse" onclick="expand_collapse('routines')">Show
-                            Abstract</a>
-                        ] [
-                        <a href="routines_final.pdf" target="_blank">Paper</a>
-                        ]
-                        <br>
-                        <div id="routines" style="display:none;">
-                            <blockquote>
-                                Routines are central to consumer behavior in many industries, including ride-sharing,
-                                where consumers may use the same app to take the same trips on a regular basis. While
-                                prior work has established the importance of repeat behavior for marketing, little work
-                                has been done to understand the implications of routines, which we define as repeated
-                                behavior with a distinct, recurring, temporal structure. Partly, this lack of research
-                                stems from the statistical problem of estimating routines. In this paper, we propose a
-                                new approach to measuring routine usage, which we apply in the context of ride-sharing.
-                                Specifically, we model usage of the platform as an individual-level inhomogeneous
-                                Poisson point process, where the rate of usage is determined partly by a Bayesian
-                                nonparametric Gaussian process. In estimating this rate function, we leverage a unique
-                                cyclical kernel structure, that allows for precise estimation of recurrent behavior. We
-                                then use this model to estimate individual-level routines in usage of a ride-sharing
-                                service. We show that more routine users tend to be more valuable customers, with high
-                                individual-level “routineness” being significantly associated with higher future usage
-                                and lower churn rates.
-                            </blockquote>
-                        </div>
+                            <br>
+                            <i>Forthcoming, Journal of Marketing Research</i>
+                            <br>
+                            [
+                            <a href="#routines-abstract" id="routines_collapse" onclick="expand_collapse('routines')">Show
+                                Abstract</a>
+                            ] [
+                            <a href="routines_final.pdf" target="_blank">Paper</a>
+                            ]
+                            <br>
+                            <div id="routines" style="display:none;">
+                                <blockquote>
+                                    Routines shape many aspects of day-to-day consumption. While prior work has established 
+                                    the importance of habits in consumer behavior, little work has been done to understand 
+                                    the implications of routines —- which we define as repeated behaviors with recurring, 
+                                    temporal structures —- for customer management. One reason for this dearth is the difficulty 
+                                    of measuring routines from transaction data, particularly when routines vary substantially 
+                                    across customers. We propose a new approach for doing so, which we apply in the context of 
+                                    ridesharing. We model customer-level routines with Bayesian nonparametric Gaussian 
+                                    processes (GPs), leveraging a novel kernel that allows for flexible yet precise estimation 
+                                    of routines. These GPs are nested in inhomogeneous Poisson processes of usage, allowing us 
+                                    to estimate customers' routines, and decompose their usage into routine and non-routine 
+                                    parts. We show the value of detecting routines for customer relationship management (CRM) 
+                                    in the context of ridesharing, where we find that routines are associated with higher 
+                                    future usage and activity rates, and more resilience to service failures. Moreover, we 
+                                    show how these outcomes vary by the types of routines customers have, and by whether 
+                                    trips are part of the customer's routine, suggesting a role for routines in segmentation 
+                                    and targeting.
+                                </blockquote>
+                            </div>
                         </li>
                         <br>
                     </ul>
