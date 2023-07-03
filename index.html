@@ -23,17 +23,17 @@ Written by Dick Ervasti. Learn More at:
 http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
 ##################################-->
 <script type="text/javascript">
-    < !-
+    <!--
         function expand_collapse(id) {
             var e = document.getElementById(id);
-            var f = document.getElementById(id + "_collapse");
-            if (e.style.display == 'none') {
-                e.style.display = 'block';
-                f.innerHTML = 'Hide Abstract';
+            var f = document.getElementById(id+"_collapse");
+            if(e.style.display == 'none'){
+            e.style.display = 'block';
+            f.innerHTML = 'Hide Abstract';
             }
             else {
-                e.style.display = 'none';
-                f.innerHTML = 'Show Abstract';
+            e.style.display = 'none';
+            f.innerHTML = 'Show Abstract';
             }
         }
     //-->
