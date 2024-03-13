@@ -337,7 +337,7 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <br>
                             Zijun Tian, Ryan Dew, and Raghu Iyengar
                         </li>
-                        <i>Journal of Marketing Research, 2023</i>
+                        <i>Journal of Marketing Research, 2024</i>
                         <br>
                         [
                         <a href="#tiktok-abstract" id="tiktok_collapse" onclick="expand_collapse('tiktok')">Show Abstract</a>
@@ -378,6 +378,8 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <b>Adaptive Preference Measurement with Unstructured Data</b>
                             <br>
                             Ryan Dew
+							<br>
+							<i>Last updated: November 2023</i>
                         </li>
                         [
                         <a href="#onboarding-abstract" id="onboarding_collapse"
@@ -394,9 +396,11 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                         </li>
                         <br>
                         <li>
-                            <b>A Gaussian Process Model of Cross-Category Dynamics in Brand Choice</b>
+                            <b>Correlated Dynamics in Marketing Sensitivities</b>
                             <br>
                             Ryan Dew, Yuhao Fan
+							<br>
+							<i>Last updated: March 2024</i>
                         </li>
                         [
                         <a href="#crosscat-abstract" id="crosscat_collapse" onclick="expand_collapse('crosscat')">Show
@@ -408,27 +412,7 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                         <br>
                         <div id="crosscat" style="display:none;">
                             <blockquote>
-                                Understanding individual customers’ sensitivities to prices, promotions, brand, and
-                                other aspects of the marketing mix is fundamental to a wide swath of marketing problems,
-                                including targeting and pricing. Companies that operate across many product categories
-                                have a unique opportunity, insofar as they can use purchasing data from one category to
-                                augment their insights in another. Such cross-category insights are especially crucial
-                                in situations where purchasing data may be rich in one category, and scarce in another.
-                                An important aspect of how consumers behave across categories is dynamics: preferences
-                                are not stable over time, and changes in individual-level preference parameters in one
-                                category may be indicative of changes in other categories, especially if those changes
-                                are driven by external factors. Yet, despite the rich history of modeling cross-category
-                                preferences, the marketing literature lacks a framework that flexibly accounts for
-                                correlated dynamics, or the cross-category interlinkages of individual-level sensitivity
-                                dynamics. In this work, we propose such a framework, leveraging individual-level,
-                                latent, multi-output Gaussian processes to build a nonparametric Bayesian choice model
-                                that allows information sharing of preference parameters across customers, time, and
-                                categories. We apply our model to grocery purchase data, and show that our model detects
-                                interesting dynamics of customers’ price sensitivities across multiple categories.
-                                Managerially, we show that capturing correlated dynamics yields substantial predictive
-                                gains, relative to benchmarks. Moreover, we find that capturing correlated dynamics can
-                                have implications for understanding changes in consumers preferences over time, and
-                                developing targeted marketing strategies based on those dynamics.
+                                Understanding individual customers' sensitivities to prices, promotions, brands, and other marketing mix elements is fundamental to a wide swath of marketing problems. An important but understudied aspect of this problem is the dynamic nature of these sensitivities, which change over time and vary across individuals. Prior work has developed methods for capturing such dynamic heterogeneity within product categories, but neglected the possibility of correlated dynamics across categories. In this work, we introduce a framework to capture such correlated dynamics using a hierarchical dynamic factor model, where individual preference parameters are influenced by common cross-category dynamic latent factors, estimated through Bayesian nonparametric Gaussian processes. We apply our model to grocery purchase data, and find that a surprising degree of dynamic heterogeneity can be accounted for by only a few global trends. We also characterize the patterns in how consumers' sensitivities evolve across categories. Managerially, the proposed framework not only enhances predictive accuracy by leveraging cross-category data, but enables more precise estimation of quantities of interest, like price elasticity. 
                             </blockquote>
                         </div>
                         </li>
@@ -438,18 +422,13 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                     <strong>Selected Research in Progress:</strong>
                     <ul>
                         <li>
-                            <b>Bayesian Analysis of A/B Tests with Partially Observed Assignment: An Application to Free
-                                Cancellation Programs</b>
+                            <b>Identification of Nonlinearities and Dynamics in Marketing Mix Models</b>
                             <br>
-                            Yuhao Fan, Ryan Dew, Eric T. Bradlow, Peter Fader
+                            with Nicolas Padilla and Anya Schetkina
                         </li>
-                        <!-- [<a href="#hostel-abstract" id="hostel_collapse" onclick="expand_collapse('hostel')">Show Abstract</a>] [<a href="mailto:ryandew@wharton.upenn.edu">Request Paper</a>]<br>
-							<div id="hostel" style="display:none;"><blockquote>	Despite the recent surge in popularity of free cancellation programs across many business settings, the impact of a free cancellation program on customers’ behavior and firm profits remains unclear. Previous research has found that the implementation of a free cancellation program encourages customers to repeat purchase more frequently, spend more on each trip, but also cancel their reservations more often. However, we do not know the relative magnitude of each effect, or which may dominate in terms of the overall impact on firm profit. We investigate this question empirically using data from a hostel booking platform, and a Bayesian semiparametric model that lets us nonparametrically decompose the impact of the free cancellation on customers’ repeat booking propensity, booking timing, spend and cancellation amounts, and propensity to churn. Our model combines both Bayesian nonparametric Gaussian processes to assess intertemporal effects of the program, and Dirichlet processes to capture the rich heterogeneity that exists in this setting. We find that the effect of the program on existing customers varies tremendously across different customer segments, with muted short-run effects for loyal customers, but strong, positive CLV implications. Ultimately, we find the program was beneficial for the platform.
-							</blockquote></div> -->
-                        </li>
-                        <br>
+						<br>
                         <li>
-                            <b>Unified Marketing Measurement under Privacy Regulations</b>
+                            <b>Unified Marketing Measurement and Optimal Test Timing</b>
                             <br>
                             with Nicolas Padilla
                         </li>
@@ -458,6 +437,23 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                             <b>Graph Representation Learning for Inferring Market Structure</b>
                             <br>
                             with <a href="https://www.mingyung-kim.com/">Mingyung Kim</a>
+                        </li>
+                        <br>
+                        <li>
+                            <b>How Do Influencers Learn From Feedback?</b>
+                            <br>
+                            with Zijun Tian and Raghu Iyengar
+                        </li>
+                        <br>
+                        <li>
+                            <b>Bayesian Analysis of A/B Tests with Partially Observed Assignment: An Application to Free
+                                Cancellation Programs</b>
+                            <br>
+                            Yuhao Fan, Ryan Dew, Eric T. Bradlow, Peter Fader
+                        </li>
+                        <!-- [<a href="#hostel-abstract" id="hostel_collapse" onclick="expand_collapse('hostel')">Show Abstract</a>] [<a href="mailto:ryandew@wharton.upenn.edu">Request Paper</a>]<br>
+							<div id="hostel" style="display:none;"><blockquote>	Despite the recent surge in popularity of free cancellation programs across many business settings, the impact of a free cancellation program on customers’ behavior and firm profits remains unclear. Previous research has found that the implementation of a free cancellation program encourages customers to repeat purchase more frequently, spend more on each trip, but also cancel their reservations more often. However, we do not know the relative magnitude of each effect, or which may dominate in terms of the overall impact on firm profit. We investigate this question empirically using data from a hostel booking platform, and a Bayesian semiparametric model that lets us nonparametrically decompose the impact of the free cancellation on customers’ repeat booking propensity, booking timing, spend and cancellation amounts, and propensity to churn. Our model combines both Bayesian nonparametric Gaussian processes to assess intertemporal effects of the program, and Dirichlet processes to capture the rich heterogeneity that exists in this setting. We find that the effect of the program on existing customers varies tremendously across different customer segments, with muted short-run effects for loyal customers, but strong, positive CLV implications. Ultimately, we find the program was beneficial for the platform.
+							</blockquote></div> -->
                         </li>
                         <br>
                         <!-- <li><b></b><br></li>
