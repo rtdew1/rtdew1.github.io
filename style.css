@@ -291,17 +291,14 @@ Nav
 
 
 /* Base Styles for Headshot Images */
+/* Base Styles for Headshot Images */
 #headshot picture,
 #headshot img {
     display: block;           /* Ensure images are block-level for consistent spacing */
     margin: 0 auto;           /* Center the image horizontally */
-    max-width: 100%;          /* Make the image responsive */
+    width: 220px;             /* Set fixed width to 220px */
     height: auto;             /* Maintain aspect ratio */
-}
-
-#headshot img {
-    width: 220px;             /* Set a fixed width as per your original design */
-    border: 2px solid #000;   /* Add a border (adjust color as needed) */
+    border: 0px solid #000;   /* Add border, adjust color as needed */
 }
 
 /* If widescreen (min-width: 500px): */
