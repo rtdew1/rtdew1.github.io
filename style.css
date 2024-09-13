@@ -290,79 +290,90 @@ Nav
 
 /* ------ SIZE ADAPTIVE ------ */
 
-/*  If widescreen:  */
-
-@media (min-width: 500px)
-{
-	.header { padding: 1.5em 3em; }
-	.nav-bar
-	{
-		background: #000;
-		padding: 1em 0em;
-		position: fixed;
-	    white-space: nowrap;
-	    width:100%;
-	    display:table;
-	    height: 25px;
-	    line-height:25px;
-	}
-	.content { padding: 2em 3em; }
-	.footer { padding: 2em 3em; }
-
-	.nav
-	{
-		width: 0%;
-		background: #000;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		position: fixed;
-	}
-	
-	.nav li
-	{
-		display: inline;
-		margin: 0 1em 0 0;
-	}
-	
-	.nav t1
-	{
-		display: inline;
-		margin-left: 0px;
-		margin-right: 32px;
-		padding: 0;
-		border-bottom: 0;
-	}
-
-	.nav a
-	{
-		display: inline;
-		padding: 0;
-		border-bottom: 0;
-		font-weight: 500;
-		font-size: 1.1em;
-	}
-	
-	#left {
-		padding-top: 50px;
-	}
-	#right {
-		padding-top: 50px;
-	}
-	#research {
-		padding-top: 50px;
-	}
+/* Base Styles for Desktop Image */
+.desktop-image {
+    display: none;          /* Hide the image by default */
+    width: 220px;           /* Set desired width */
+    border: 0px solid #000; /* Set desired border color */
+    /* Add any additional styling here */
 }
 
-/*  If small (phone, tablet):  */
+/* If widescreen (min-width: 500px): */
+@media (min-width: 500px) {
+    .header { padding: 1.5em 3em; }
+    .nav-bar {
+        background: #000;
+        padding: 1em 0em;
+        position: fixed;
+        white-space: nowrap;
+        width: 100%;
+        display: table;
+        height: 25px;
+        line-height: 25px;
+    }
+    .content { padding: 2em 3em; }
+    .footer { padding: 2em 3em; }
+
+    .nav {
+        width: 0%;
+        background: #000;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: fixed;
+    }
+    
+    .nav li {
+        display: inline;
+        margin: 0 1em 0 0;
+    }
+    
+    .nav t1 {
+        display: inline;
+        margin-left: 0px;
+        margin-right: 32px;
+        padding: 0;
+        border-bottom: 0;
+    }
+
+    .nav a {
+        display: inline;
+        padding: 0;
+        border-bottom: 0;
+        font-weight: 500;
+        font-size: 1.1em;
+    }
+    
+    #left {
+        padding-top: 50px;
+    }
+    #right {
+        padding-top: 50px;
+    }
+    #research {
+        padding-top: 50px;
+    }
+
+    /* Show desktop image on wide screens */
+    .desktop-image {
+        display: block; /* Show the image */
+    }
+}
+
+/* If small (phone, tablet): */
 @media screen and (max-width: 500px) {
-    #container { display: flex; flex-flow: column; }
+    #container { 
+        display: flex; 
+        flex-flow: column; 
+    }
     #right { 
-		width: 95%;
-		order: 1;
-	 }
+        width: 95%;
+        order: 1;
+     }
     #left { 
-		width: 95%;
-		order: 2;  
-	}
+        width: 95%;
+        order: 2;  
+    }
+    
+    /* No additional rules needed for the image as it's already hidden by default */
 }
