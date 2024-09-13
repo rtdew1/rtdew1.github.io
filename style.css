@@ -355,8 +355,11 @@ Nav
     }
 
     /* Show desktop image on wide screens */
+    .mobile-image {
+        display: none;
+    }
     .desktop-image {
-        display: block; /* Show the image */
+        display: block;
     }
 }
 
@@ -385,4 +388,15 @@ Nav
         margin: 0;
         padding: 0;
     }
+    .desktop-image {
+        display: none;
+    }
+    .mobile-image {
+        display: block;
+    }
+}
+/* Optional: Ensure images are hidden by default and only shown when media queries apply */
+.mobile-image,
+.desktop-image {
+    display: none;
 }
