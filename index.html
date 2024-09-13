@@ -119,10 +119,15 @@ http://dickervasti.com/wiki-style-text-expand-collapse-no-jquery.htm
                     <br>
                     <br>
                     <center>
-						<div id="headshot">
-						    <img src="dew_headshot_small.jpg" class="mobile-image" width="220" border="2" alt="Ryan Dew Headshot">
-						    <img src="dew_standing_small.jpg" class="desktop-image" width="220" border="2" alt="Ryan Dew Standing">
-						</div>
+<div id="headshot">
+    <picture>
+        <!-- For Desktop/Wide Screens (min-width: 500px) -->
+        <source media="(min-width: 500px)" srcset="dew_standing_small.jpg">
+        
+        <!-- For Mobile/Narrow Screens (fallback) -->
+        <img src="dew_headshot_outdoor_small.jpg" alt="Ryan Dew Headshot" loading="lazy">
+    </picture>
+</div>
                     </center>
                 </div>
         </center>

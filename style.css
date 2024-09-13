@@ -287,15 +287,21 @@ Nav
 	background-color: #777;
 }
 
-
 /* ------ SIZE ADAPTIVE ------ */
 
-/* Base Styles */
-.desktop-image {
-    display: none; /* Hide the image by default */
-    width: 220px;  /* Set desired width */
-    border: 0px solid #000; /* Adjust border color as needed */
-    /* Add any additional styling here */
+
+/* Base Styles for Headshot Images */
+#headshot picture,
+#headshot img {
+    display: block;           /* Ensure images are block-level for consistent spacing */
+    margin: 0 auto;           /* Center the image horizontally */
+    max-width: 100%;          /* Make the image responsive */
+    height: auto;             /* Maintain aspect ratio */
+}
+
+#headshot img {
+    width: 220px;             /* Set a fixed width as per your original design */
+    border: 2px solid #000;   /* Add a border (adjust color as needed) */
 }
 
 /* If widescreen (min-width: 500px): */
@@ -344,26 +350,20 @@ Nav
         font-size: 1.1em;
     }
     
-    #left {
-        padding-top: 50px;
-    }
-    #right {
-        padding-top: 50px;
-    }
+    #left,
+    #right,
     #research {
         padding-top: 50px;
     }
 
-    /* Show desktop image on wide screens */
-    .mobile-image {
-        display: none;
-    }
-    .desktop-image {
-        display: block;
+    /* Ensure no extra padding/margin from headshot */
+    #headshot {
+        margin: 0;
+        padding: 0;
     }
 }
 
-/* If small (phone, tablet): */
+/* If small (phone, tablet) (max-width: 500px): */
 @media screen and (max-width: 500px) {
     #container { 
         display: flex; 
@@ -372,15 +372,15 @@ Nav
     #right { 
         width: 95%;
         order: 1;
-        padding-top: 0; /* Reset padding-top */
-    }
+        padding-top: 0; /* Remove top padding to eliminate extra whitespace */
+     }
     #left { 
         width: 95%;
         order: 2;  
-        padding-top: 0; /* Reset padding-top */
+        padding-top: 0; /* Remove top padding to eliminate extra whitespace */
     }
     #research {
-        padding-top: 0; /* Reset padding-top */
+        padding-top: 0; /* Remove top padding to eliminate extra whitespace */
     }
 
     /* Remove any padding/margin from headshot container */
@@ -388,15 +388,4 @@ Nav
         margin: 0;
         padding: 0;
     }
-    .desktop-image {
-        display: none;
-    }
-    .mobile-image {
-        display: block;
-    }
-}
-/* Optional: Ensure images are hidden by default and only shown when media queries apply */
-.mobile-image,
-.desktop-image {
-    display: none;
 }
