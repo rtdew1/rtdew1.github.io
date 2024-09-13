@@ -290,11 +290,11 @@ Nav
 
 /* ------ SIZE ADAPTIVE ------ */
 
-/* Base Styles for Desktop Image */
+/* Base Styles */
 .desktop-image {
-    display: none;          /* Hide the image by default */
-    width: 220px;           /* Set desired width */
-    border: 0px solid #000; /* Set desired border color */
+    display: none; /* Hide the image by default */
+    width: 220px;  /* Set desired width */
+    border: 0px solid #000; /* Adjust border color as needed */
     /* Add any additional styling here */
 }
 
@@ -369,11 +369,20 @@ Nav
     #right { 
         width: 95%;
         order: 1;
-     }
+        padding-top: 0; /* Reset padding-top */
+    }
     #left { 
         width: 95%;
         order: 2;  
+        padding-top: 0; /* Reset padding-top */
     }
-    
-    /* No additional rules needed for the image as it's already hidden by default */
+    #research {
+        padding-top: 0; /* Reset padding-top */
+    }
+
+    /* Remove any padding/margin from headshot container */
+    #headshot {
+        margin: 0;
+        padding: 0;
+    }
 }
