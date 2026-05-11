@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryan Dew — Frontiers of Marketing Science | Wharton Exec Ed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Brand Tokens ─────────────────────────────────────────── */
+    :root {
+      --blue:      #011F5B;
+      --red:       #990000;
+      --bay:       #004C97;
+      --marine:    #53565A;
+      --college:   #888B8D;
+      --white:     #FFFFFF;
+      --off-white: #F4F5F7;
+      --sans:  'Inter', Arial, sans-serif;
+      --serif: 'Lora', Georgia, serif;
+      --slide-w: 1280px;
+      --slide-h: 720px;
+      --trans: 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden; background: #000;
+      font-family: var(--sans);
+    }
+
+    /* ─── Stage & Deck ──────────────────────────────────────────── */
+    #stage {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #deck {
+      position: relative;
+      width: var(--slide-w); height: var(--slide-h);
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+    }
+
+    /* ─── Slide Base — ALL slides must remain position:absolute ──── */
+    .slide {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;           /* clips decorative bleeds */
+      transform: translateX(100%);
+      transition: transform var(--trans);
+      will-change: transform;
+    }
+    .slide.active  { transform: translateX(0); }
+    .slide.leaving { transform: translateX(-100%); }
+
+    /* ─── Chrome ────────────────────────────────────────────────── */
+    #chrome {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 36px;
+      display: flex; align-items: center; padding: 0 24px; gap: 16px;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 100;
+    }
+    #dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active { background: var(--red); transform: scale(1.3); }
+    #progress-track { flex: 1; height: 3px; background: rgba(255,255,255,0.15); border-radius: 2px; }
+    #progress-fill  { height: 100%; background: var(--red); border-radius: 2px; transition: width 0.35s ease; }
+    #counter { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); min-width: 52px; text-align: right; }
+    .chrome-btn {
+      font-family: var(--sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.07em; color: rgba(255,255,255,0.4); background: none;
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 3px;
+      padding: 3px 10px; cursor: pointer; transition: all 0.2s;
+    }
+    .chrome-btn:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+    /* ─── Shared atoms ──────────────────────────────────────────── */
+    .wordmark {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+    }
+    .wordmark span { color: rgba(255,255,255,0.3); font-weight: 400; margin-left: 8px; letter-spacing: 0.1em; }
+
+    .eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red);
+    }
+    .eyebrow--bay { color: var(--bay); }
+
+    /* ─── Animations ────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .slide.active .anim { animation: fadeUp 0.5s ease both; }
+    .slide.active .a1 { animation-delay: 0.05s; }
+    .slide.active .a2 { animation-delay: 0.14s; }
+    .slide.active .a3 { animation-delay: 0.23s; }
+    .slide.active .a4 { animation-delay: 0.32s; }
+    .slide.active .a5 { animation-delay: 0.41s; }
+    .slide.active .a6 { animation-delay: 0.50s; }
+    .slide.active .a7 { animation-delay: 0.59s; }
+
+    /* ══════════════════════════════════════════════════════════════
+       DARK SLIDES (title & close)
+       NOTE: NO position:relative — .slide handles positioning
+    ══════════════════════════════════════════════════════════════ */
+    .s-dark {
+      background: var(--blue);
+      display: grid; grid-template-rows: 64px 1fr 56px;
+    }
+    /* decorative accents */
+    .s-dark::before {
+      content: '';
+      position: absolute; right: -60px; top: 0;
+      width: 480px; height: 100%;
+      background: linear-gradient(155deg, var(--bay) 0%, transparent 60%);
+      clip-path: polygon(28% 0, 100% 0, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+    .s-dark::after {
+      content: '';
+      position: absolute; right: 0; bottom: 0;
+      width: 440px; height: 440px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .s-dark__bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 52px; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 1;
+    }
+    .s-dark__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 52px; border-top: 1px solid rgba(255,255,255,0.08); z-index: 1;
+    }
+    .s-dark__foot-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+    }
+    .s-dark__body {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 52px; z-index: 1;
+    }
+    .s-dark__headline {
+      font-size: 54px; font-weight: 800; line-height: 1.08;
+      letter-spacing: -0.02em; color: var(--white); max-width: 920px;
+      white-space: nowrap;
+    }
+    .s-dark__rule { width: 48px; height: 3px; background: var(--red); margin: 28px 0 22px; }
+    .s-dark__name { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+    .s-dark__role { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.48); margin-top: 5px; line-height: 1.5; }
+
+    /* Close variant */
+    .s-dark--close::before {
+      clip-path: none; border-radius: 50%;
+      width: 600px; height: 600px; right: -200px; top: -200px;
+      border: 80px solid rgba(255,255,255,0.025); background: transparent;
+    }
+    .s-dark--close::after { display: none; }
+    .s-dark__body--close { display: grid; grid-template-columns: 1fr 460px; }
+    .s-dark__close-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 48px 48px 0; border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .s-dark__close-headline {
+      font-size: 50px; font-weight: 800; letter-spacing: -0.025em;
+      color: var(--white); line-height: 1.05;
+    }
+    .s-dark__close-sub {
+      font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.52);
+      line-height: 1.65; max-width: 460px;
+    }
+    .s-dark__close-right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 0 48px 44px; gap: 20px;
+    }
+    .contact__label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+    }
+    .contact__value {
+      font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.72); margin-top: 4px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       ABOUT SLIDE (split: dark left panel + white right)
+    ══════════════════════════════════════════════════════════════ */
+    .s-split { display: grid; grid-template-columns: 300px 1fr; background: var(--off-white); }
+
+    .s-split__left {
+      background: var(--blue);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 44px 36px; position: relative; overflow: hidden;
+    }
+    .s-split__left::after {
+      content: ''; position: absolute; bottom: -80px; right: -80px;
+      width: 260px; height: 260px; border-radius: 50%;
+      border: 32px solid rgba(255,255,255,0.04); pointer-events: none;
+    }
+    .s-split__initials {
+      font-size: 80px; font-weight: 800; letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.06); line-height: 1; margin-bottom: 20px; z-index: 1;
+    }
+    .s-split__name { font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; z-index: 1; }
+    .s-split__title-text { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.52); margin-top: 5px; line-height: 1.5; z-index: 1; }
+    .s-split__creds { display: flex; flex-direction: column; gap: 12px; z-index: 1; }
+    .s-split__cred-label { font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); }
+    .s-split__cred-value { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.68); margin-top: 2px; line-height: 1.4; }
+    .s-split__inst { font-size: 8px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); z-index: 1; }
+
+    .s-split__right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 44px 60px;
+    }
+    .s-split__heading {
+      font-size: 33px; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--blue); line-height: 1.15; margin: 8px 0 20px;
+    }
+    .s-split__desc {
+      font-size: 17px; font-weight: 400; color: var(--marine);
+      line-height: 1.65; max-width: 620px; margin-bottom: 32px;
+    }
+    .stat-row { display: flex; gap: 36px; }
+    .stat__rule { width: 20px; height: 2px; background: var(--red); margin-bottom: 6px; }
+    .stat__number { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: var(--blue); line-height: 1; }
+    .stat__label  { font-size: 10px; font-weight: 500; color: var(--college); margin-top: 3px; line-height: 1.35; }
+
+    /* ══════════════════════════════════════════════════════════════
+       THREE AREAS SLIDE
+       NO position:relative on this selector
+    ══════════════════════════════════════════════════════════════ */
+    .s-areas { background: var(--blue); display: grid; grid-template-rows: 64px 1fr 56px; }
+
+    .s-areas__bar {
+      display: flex; align-items: center; padding: 0 52px;
+      border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1;
+    }
+    .s-areas__foot {
+      display: flex; align-items: center; padding: 0 52px;
+      border-top: 1px solid rgba(255,255,255,0.1); z-index: 1;
+    }
+    .s-areas__foot-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+
+    .s-areas__body {
+      display: flex;  /* flex avoids the gap-trick that caused rendering issues */
+      z-index: 1;
+    }
+    .area-card {
+      flex: 1;
+      background: var(--blue);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 40px 44px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+    }
+    .area-card:last-child { border-right: none; }
+    .area-card:hover { background: rgba(0,76,151,0.45); }
+
+    .area-card__num {
+      position: absolute; top: 16px; right: 28px;
+      font-size: 100px; font-weight: 800; letter-spacing: -0.06em;
+      color: rgba(255,255,255,0.05); line-height: 1; pointer-events: none;
+    }
+    .area-card__tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .area-card__title {
+      font-size: 24px; font-weight: 700; color: var(--white);
+      line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 14px;
+    }
+    .area-card__q {
+      font-family: var(--serif); font-size: 16px; font-style: italic;
+      color: rgba(255,255,255,0.5); line-height: 1.6;
+    }
+    .area-card__bar { width: 28px; height: 2px; background: var(--red); margin-top: 24px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESEARCH SLIDES  (dark left panel + white right)
+    ══════════════════════════════════════════════════════════════ */
+    .s-research {
+      display: grid; grid-template-columns: 340px 1fr; grid-template-rows: 1fr auto;
+      background: var(--white);
+    }
+    /* left panel spans both rows */
+    .s-research__left {
+      grid-row: 1 / 3;
+      background: var(--blue);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 44px 36px; position: relative; overflow: hidden;
+    }
+    .s-research__left::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 100%; height: 4px; background: var(--red);
+    }
+    .s-research__stream-num {
+      font-size: 120px; font-weight: 800; letter-spacing: -0.06em;
+      color: rgba(255,255,255,0.05); line-height: 1;
+      position: absolute; bottom: 60px; right: -8px; pointer-events: none;
+    }
+
+    .s-research__left-top { z-index: 1; }
+    .s-research__stream-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+    }
+    .s-research__left-heading {
+      font-size: 18px; font-weight: 700; color: var(--white);
+      line-height: 1.35; letter-spacing: -0.01em;
+    }
+    .s-research__context {
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.52);
+      line-height: 1.6; margin-top: 14px;
+    }
+
+    .s-research__papers { z-index: 1; display: flex; flex-direction: column; gap: 8px; }
+    .s-research__papers-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 2px;
+    }
+    .paper-pill {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.6); line-height: 1.4;
+    }
+    .paper-pill__dot {
+      flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); margin-top: 4px;
+    }
+    .paper-pill--award { color: rgba(255,180,180,0.85); }
+    .paper-pill--award .paper-pill__dot { background: rgba(255,180,180,0.85); }
+
+    /* right side */
+    .s-research__right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 36px 52px;
+    }
+    .s-research__heading {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.02em;
+      color: var(--blue); line-height: 1.15; margin-bottom: 24px;
+    }
+
+    /* Bullet system */
+    .blist { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .blist li { display: flex; gap: 14px; align-items: flex-start; }
+    .blist__dot {
+      flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red); margin-top: 8px;
+    }
+    .blist__text { font-size: 19px; font-weight: 400; color: var(--marine); line-height: 1.5; }
+    .blist__text strong { font-weight: 600; color: var(--blue); }
+
+    /* paper chips at bottom of right side */
+    .s-research__chips {
+      border-top: 1px solid rgba(1,31,91,0.07);
+      padding: 14px 52px; background: rgba(1,31,91,0.02);
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .chips-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--college); flex-shrink: 0;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 500; color: var(--blue);
+      background: rgba(1,31,91,0.06); border: 1px solid rgba(1,31,91,0.12);
+      border-radius: 3px; padding: 3px 9px;
+    }
+    .chip__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .chip--award { color: var(--red); background: rgba(153,0,0,0.05); border-color: rgba(153,0,0,0.18); }
+
+    /* ══════════════════════════════════════════════════════════════
+       TEACHING SLIDES  (white left + off-white right chip sidebar)
+    ══════════════════════════════════════════════════════════════ */
+    .s-teach-d {
+      display: grid; grid-template-columns: 1fr 300px;
+      background: var(--white);
+    }
+    .s-teach-d__main {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 40px 44px 40px 52px; border-right: 1px solid rgba(1,31,91,0.07);
+    }
+    .s-teach-d__side {
+      background: var(--off-white);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 36px 28px; gap: 10px;
+    }
+    .s-teach-d__side-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--college); margin-bottom: 6px;
+    }
+    .d-chip {
+      display: block; width: 100%;
+      font-size: 13px; font-weight: 600; color: var(--blue);
+      background: var(--white); border: 1px solid rgba(1,31,91,0.15);
+      border-radius: 3px; padding: 9px 14px; line-height: 1.3;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       INDUSTRY / WHAT I BRING
+    ══════════════════════════════════════════════════════════════ */
+    .s-impact {
+      display: grid; grid-template-rows: auto 1fr auto;
+      background: var(--off-white);
+    }
+    .s-impact__header {
+      display: grid; grid-template-columns: 6px 1fr;
+      border-bottom: 1px solid rgba(1,31,91,0.1);
+    }
+    .s-impact__stripe { background: var(--red); }
+    .s-impact__header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 52px 18px 40px;
+    }
+    .s-impact__heading {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--blue);
+    }
+    .impact-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--red);
+      background: rgba(153,0,0,0.07); border: 1px solid rgba(153,0,0,0.18);
+      border-radius: 3px; padding: 4px 14px;
+    }
+
+    .s-impact__body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+    .impact-col {
+      display: flex; flex-direction: column;
+      padding: 28px 44px; gap: 0;
+    }
+    .impact-col + .impact-col { border-left: 1px solid rgba(1,31,91,0.08); }
+
+    .impact-col__label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--college); margin-bottom: 18px;
+    }
+
+    .engage-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid rgba(1,31,91,0.06);
+    }
+    .engage-card:last-child { border-bottom: none; }
+    .engage-card__co {
+      font-size: 19px; font-weight: 800; color: var(--blue);
+      letter-spacing: -0.01em; min-width: 118px; padding-top: 1px;
+    }
+    .engage-card__text {
+      font-size: 18px; font-weight: 400; color: var(--marine); line-height: 1.5;
+    }
+    .engage-card__text strong { font-weight: 600; color: var(--blue); }
+
+    .s-impact__awards {
+      border-top: 1px solid rgba(1,31,91,0.08);
+      padding: 14px 44px;
+      background: rgba(1,31,91,0.02);
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       EXEC ED FIT
+       NO position:relative — .slide handles positioning
+    ══════════════════════════════════════════════════════════════ */
+    .s-execed {
+      display: grid; grid-template-rows: auto 1fr;
+      background: var(--off-white);
+    }
+    .s-execed__header {
+      display: grid; grid-template-columns: 6px 1fr;
+      border-bottom: 1px solid rgba(1,31,91,0.1);
+    }
+    .s-execed__stripe { background: var(--blue); }
+    .s-execed__header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 52px 18px 40px;
+    }
+    .s-execed__heading {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--blue);
+    }
+    .execed-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--blue); background: rgba(1,31,91,0.07);
+      border: 1px solid rgba(1,31,91,0.15); border-radius: 3px; padding: 4px 14px;
+    }
+
+    .s-execed__body {
+      display: flex; padding: 24px 44px; gap: 16px;
+    }
+    .module-card {
+      flex: 1;
+      background: var(--white); border-radius: 4px;
+      border: 1px solid rgba(1,31,91,0.08);
+      display: flex; flex-direction: column;
+      padding: 24px 24px;
+    }
+    .module-card__area {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+    }
+    .module-card__num-rule {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+    .module-card__num {
+      font-size: 28px; font-weight: 800; letter-spacing: -0.04em;
+      color: rgba(1,31,91,0.1); line-height: 1;
+    }
+    .module-card__rule { flex: 1; height: 1px; background: rgba(1,31,91,0.1); }
+    .module-card__title {
+      font-size: 19px; font-weight: 700; color: var(--blue);
+      line-height: 1.3; margin-bottom: 14px;
+    }
+    .module-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .module-list li {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 17px; font-weight: 400; color: var(--marine); line-height: 1.4;
+    }
+    .module-list li::before {
+      content: ''; flex-shrink: 0;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--bay); margin-top: 6px;
+    }
+
+    /* ─── Print ──────────────────────────────────────────────────── */
+    @media print {
+      @page { size: 1280px 720px; margin: 0; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      html, body { width: 1280px; height: auto; overflow: visible; background: #fff; margin: 0; }
+      #stage { position: static; display: block; transform: none; }
+      #deck {
+        position: static; width: 1280px; height: auto;
+        overflow: visible; box-shadow: none; transform: none !important;
+      }
+      #chrome { display: none !important; }
+      /* Base slide reset — position/size/page-break only; NO display override here.
+         Each layout class lives on the same <section> as .slide, so a blanket
+         'display:block !important' would collapse all grid/flex layouts. */
+      .slide {
+        position: relative !important; transform: none !important;
+        page-break-after: always; break-after: page;
+        width: 1280px !important; height: 720px !important; overflow: hidden !important;
+      }
+      /* Restore correct display mode for each layout variant.
+         Higher specificity (.slide.X) beats any stale inline display:block. */
+      .slide.s-dark     { display: grid !important; }
+      .slide.s-split    { display: grid !important; }
+      .slide.s-areas    { display: grid !important; }
+      .slide.s-research { display: grid !important; }
+      .slide.s-teach-d  { display: grid !important; }
+      .slide.s-impact   { display: grid !important; }
+      .slide.s-execed   { display: grid !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="stage"><div id="deck">
+
+  <!-- ══════════════════════════════════════════
+       1 · TITLE
+  ══════════════════════════════════════════ -->
+  <section class="slide s-dark active">
+    <div class="s-dark__bar">
+      <div class="wordmark">The Wharton School <span>University of Pennsylvania</span></div>
+    </div>
+    <div class="s-dark__body">
+      <div class="eyebrow anim a1">Executive Education</div>
+      <h1 class="s-dark__headline anim a2">Frontiers of Marketing Science:<br>New Tools for Better Decisions</h1>
+      <div class="s-dark__rule anim a3"></div>
+      <div class="anim a4">
+        <div class="s-dark__name">Ryan Dew</div>
+        <div class="s-dark__role">Assistant Professor of Marketing &nbsp;·&nbsp; Govil Family Faculty Scholar &nbsp;·&nbsp; The Wharton School</div>
+      </div>
+    </div>
+    <div class="s-dark__footer">
+      <div class="s-dark__foot-label">Wharton Exec Ed · 2026</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       2 · ABOUT ME
+  ══════════════════════════════════════════ -->
+  <section class="slide s-split">
+    <div class="s-split__left">
+      <div style="z-index:1">
+        <div class="s-split__initials">RD</div>
+        <div class="s-split__name anim a1">Ryan Dew</div>
+        <div class="s-split__title-text anim a2">Assistant Professor<br>of Marketing</div>
+      </div>
+      <div class="s-split__creds anim a3">
+        <div>
+          <div class="s-split__cred-label">Position</div>
+          <div class="s-split__cred-value">Wharton, 2018–present<br>Govil Family Faculty Scholar</div>
+        </div>
+        <div>
+          <div class="s-split__cred-label">Education</div>
+          <div class="s-split__cred-value">Ph.D. Marketing, Columbia '19<br>B.A. Mathematics, Penn '13</div>
+        </div>
+        <div>
+          <div class="s-split__cred-label">Recognition</div>
+          <div class="s-split__cred-value">Frank M. Bass Award · MSI Young Scholar<br>ISMS Early Career Scholar · Paul Green Award Finalist</div>
+        </div>
+      </div>
+      <div class="s-split__inst anim a4">The Wharton School · Penn</div>
+    </div>
+
+    <div class="s-split__right">
+      <div class="eyebrow anim a1">Who I Am</div>
+      <h2 class="s-split__heading anim a2">Research and teaching at the frontier of<br>marketing science</h2>
+      <p class="s-split__desc anim a3">
+        I develop statistical and machine-learning methods that help firms make better use of data —
+        from transaction logs to brand imagery — to understand consumers, optimize strategy, and measure what works.
+        These ideas are the backbone of both my <strong style="color:var(--blue)">research</strong>
+        and my <strong style="color:var(--blue)">MBA and doctoral teaching</strong>.
+      </p>
+      <div class="stat-row anim a4">
+        <div class="stat"><div class="stat__rule"></div><div class="stat__number">7</div><div class="stat__label">Peer-Reviewed<br>Publications</div></div>
+        <div class="stat"><div class="stat__rule"></div><div class="stat__number">50+</div><div class="stat__label">Invited Talks</div></div>
+        <div class="stat"><div class="stat__rule"></div><div class="stat__number">5×</div><div class="stat__label">Wharton Teaching<br>Excellence Award</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       3 · THREE AREAS
+  ══════════════════════════════════════════ -->
+  <section class="slide s-areas">
+    <div class="s-areas__bar">
+      <div class="wordmark">The Wharton School <span>University of Pennsylvania</span></div>
+    </div>
+    <div class="s-areas__body">
+      <div class="area-card anim a1">
+        <div class="area-card__num">01</div>
+        <div>
+          <div class="area-card__tag">Predictive Analytics</div>
+          <div class="area-card__title">Customer Analytics and Relationship Management</div>
+          <div class="area-card__q">How do ML and big data transform our ability to predict who will buy, when, and why?</div>
+        </div>
+        <div class="area-card__bar"></div>
+      </div>
+      <div class="area-card anim a2">
+        <div class="area-card__num">02</div>
+        <div>
+          <div class="area-card__tag">Generative AI and Unstructured Data</div>
+          <div class="area-card__title">AI for Branding and Market Research</div>
+          <div class="area-card__q">How do we integrate generative AI into marketing and make creative decisions with data?</div>
+        </div>
+        <div class="area-card__bar"></div>
+      </div>
+      <div class="area-card anim a3">
+        <div class="area-card__num">03</div>
+        <div>
+          <div class="area-card__tag">Measurement</div>
+          <div class="area-card__title">Digital Marketing Measurement and Experimentation</div>
+          <div class="area-card__q">How do you know your marketing is working, especially as privacy regulations disrupt current practice?</div>
+        </div>
+        <div class="area-card__bar"></div>
+      </div>
+    </div>
+    <div class="s-areas__foot">
+      <div class="s-areas__foot-label">Three areas · Research + Teaching</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       4 · PREDICTIVE ANALYTICS: RESEARCH
+  ══════════════════════════════════════════ -->
+  <section class="slide s-research">
+    <div class="s-research__left">
+      <div class="s-research__left-top">
+        <div class="s-research__stream-label">01 · Predictive Analytics</div>
+        <div class="s-research__left-heading">New tools for predicting who will buy, when, and why</div>
+        <div class="s-research__context">
+          Purchase histories hold enormous predictive signal. The challenge is building models
+          flexible enough to extract it — and general enough to transfer across settings.
+        </div>
+      </div>
+      <div class="s-research__papers">
+        <div class="s-research__papers-label">References</div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew et al. (2024), "Probabilistic Machine Learning: New Frontiers for Modeling Consumers and their Choices," International Journal of Research in Marketing
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew, Ascarza, Netzer, and Sicherman (2023), "Detecting Routines: Applications to Ridesharing Customer Relationship Management," Journal of Marketing Research, 61(2), 368–392
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew and Ansari (2018), "Bayesian Nonparametric Customer Base Analysis with Model-based Visualizations," Marketing Science, 37(2), 216–235
+        </div>
+      </div>
+      <div class="s-research__stream-num">01</div>
+    </div>
+
+    <div class="s-research__right">
+      <div class="s-research__heading anim a1">Classic data, new methods — and better predictions</div>
+      <ul class="blist">
+        <li class="anim a2">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Detecting customer routines:</strong> new machine learning models distinguish routine from non-routine purchasing, sharpening predictions and revealing hidden segments.</div>
+        </li>
+        <li class="anim a3">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Heterogeneity is everywhere:</strong> customers differ in ways that matter. Flexible machine learning models that capture this variation substantially outperform standard approaches.</div>
+        </li>
+        <li class="anim a4">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Real-world deployment:</strong> methods applied with ride-sharing companies, mobile gaming platforms, and retail partners.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       5 · PREDICTIVE ANALYTICS: TEACHING
+  ══════════════════════════════════════════ -->
+  <section class="slide s-teach-d">
+    <div class="s-teach-d__main">
+      <div class="eyebrow anim a1" style="color:var(--bay);margin-bottom:10px">01 · Predictive Analytics · Teaching and Exec Ed</div>
+      <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;color:var(--blue);line-height:1.15;margin-bottom:18px" class="anim a2">Bringing research to class — topics I love teaching</div>
+      <div style="width:36px;height:2px;background:var(--red);margin-bottom:22px" class="anim a2"></div>
+      <ul class="blist">
+        <li class="anim a3"><div class="blist__dot"></div><div class="blist__text"><strong>Customer Lifetime Value:</strong> what it is, why it matters, and how to build strategies around growing it</div></li>
+        <li class="anim a4"><div class="blist__dot"></div><div class="blist__text"><strong>Managing churn:</strong> prediction, intervention timing, and the economics of retention</div></li>
+        <li class="anim a5"><div class="blist__dot"></div><div class="blist__text"><strong>Heterogeneity and STP:</strong> connecting statistical customer variation to classic segmentation, targeting, and positioning frameworks</div></li>
+        <li class="anim a6"><div class="blist__dot"></div><div class="blist__text"><strong>ML-driven personalization:</strong> from segmentation to individual-level predictions — building practical, defensible models</div></li>
+      </ul>
+    </div>
+    <div class="s-teach-d__side">
+      <div class="s-teach-d__side-label">Key Topics</div>
+      <div class="d-chip anim a2">Customer lifetime value</div>
+      <div class="d-chip anim a3">Managing churn and retention</div>
+      <div class="d-chip anim a4">Customer relationship management</div>
+      <div class="d-chip anim a5">Predictive analytics</div>
+      <div class="d-chip anim a6">Segmentation and targeting</div>
+      <div class="d-chip anim a7">Customer heterogeneity</div>
+      <div class="d-chip anim a7">Personalization</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       6 · GENERATIVE AI: RESEARCH
+  ══════════════════════════════════════════ -->
+  <section class="slide s-research">
+    <div class="s-research__left">
+      <div class="s-research__left-top">
+        <div class="s-research__stream-label">02 · Gen AI and Unstructured Data</div>
+        <div class="s-research__left-heading">Making creative and research processes data-driven</div>
+        <div class="s-research__context">
+          At the time of our logo paper, people said: "there's no way we can model something as
+          creative as design." We proved them wrong — and opened a new research agenda.
+        </div>
+      </div>
+      <div class="s-research__papers">
+        <div class="s-research__papers-label">References</div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew (2024), "Adaptive Preference Measurement with Unstructured Data," Management Science, 71(5), 3996–4012
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          He and Dew (2026), "Optimal Product Design Synthesis: Pairing Generative Models with Adaptive Preference Measurement," working paper
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew, Ansari, and Toubia (2022), "Letting Logos Speak: Leveraging Multiview Representation Learning for Data-Driven Logo Design," Marketing Science, 41(2), 401–425
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          AI-Driven Conjoint Analysis (work in progress, with Lan E. Luo)
+        </div>
+      </div>
+      <div class="s-research__stream-num">02</div>
+    </div>
+
+    <div class="s-research__right">
+      <div class="s-research__heading anim a1">Generative AI as a marketing research tool</div>
+      <ul class="blist">
+        <li class="anim a2">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Data-driven branding and logo design:</strong> the first marketing paper to treat creative design as an analytical problem — using generative AI to turn subjective aesthetic decisions into a structured, data-driven process.</div>
+        </li>
+        <li class="anim a3">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Adaptive preference measurement:</strong> consumers respond to visuals, not just words. Generative image models learn individual preferences rapidly from a small number of interactions.</div>
+        </li>
+        <li class="anim a4">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>AI-driven conjoint analysis (work in progress):</strong> we use AI-enabled survey technology to explore exactly what influences consumer choice, modernizing traditional survey methods. The goal is to understand what actually drives market shares: the product, or how it's framed?</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       7 · INFLUENCER MARKETING: RESEARCH
+  ══════════════════════════════════════════ -->
+  <section class="slide s-research">
+    <div class="s-research__left">
+      <div class="s-research__left-top">
+        <div class="s-research__stream-label">02 · Unstructured Data · Influencers</div>
+        <div class="s-research__left-heading">Who should brands work with, and how should influencers manage their audiences?</div>
+        <div class="s-research__context">
+          Answering these questions requires analyzing content at scale: text, images, and
+          engagement patterns that reveal what actually drives influence and brand lift.
+        </div>
+      </div>
+      <div class="s-research__papers">
+        <div class="s-research__papers-label">References</div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Tian, Dew, and Iyengar (2024), "Mega or Micro? Influencer Selection Using Follower Elasticity," Journal of Marketing Research, 61(3), 472–495
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Tian, Dew, and Iyengar (2026), "How Do Influencers Learn From Feedback?" Working paper
+        </div>
+      </div>
+      <div class="s-research__stream-num">02</div>
+    </div>
+
+    <div class="s-research__right">
+      <div class="s-research__heading anim a1">Not all influence is created equal</div>
+      <ul class="blist">
+        <li class="anim a2">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Mega vs. micro influencers:</strong> a large following isn't always better. We quantify how reach, engagement, and cost effectiveness vary systematically with influencer size in ways brands often get wrong.</div>
+        </li>
+        <li class="anim a3">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Strategic follower management:</strong> ongoing work studying the decisions influencers face — what to post, how to grow, and how to sustain authentic relationships over time.</div>
+        </li>
+        <li class="anim a4">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>The unstructured data angle:</strong> content-level analysis — images, text, tone — reveals what actually drives engagement, brand affinity, and purchase intent.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       8 · GENERATIVE AI: TEACHING
+  ══════════════════════════════════════════ -->
+  <section class="slide s-teach-d">
+    <div class="s-teach-d__main">
+      <div class="eyebrow anim a1" style="color:var(--bay);margin-bottom:10px">02 · Generative AI · Teaching and Exec Ed</div>
+      <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;color:var(--blue);line-height:1.15;margin-bottom:18px" class="anim a2">Cutting through the hype — and knowing when AI works</div>
+      <div style="width:36px;height:2px;background:var(--red);margin-bottom:22px" class="anim a2"></div>
+      <ul class="blist">
+        <li class="anim a3"><div class="blist__dot"></div><div class="blist__text"><strong>Synthetic respondents and digital twins:</strong> enormous promise in marketing research, but also real risk — I help students understand when these ideas work, and when they don't</div></li>
+        <li class="anim a4"><div class="blist__dot"></div><div class="blist__text"><strong>Product design and conjoint analysis:</strong> quantifying trade-offs, designing good studies, and connecting consumer preferences to product strategy</div></li>
+        <li class="anim a5"><div class="blist__dot"></div><div class="blist__text"><strong>The science of visual design:</strong> what data tell us about branding, aesthetics, and creative decisions, and how AI is changing each</div></li>
+      </ul>
+    </div>
+    <div class="s-teach-d__side">
+      <div class="s-teach-d__side-label">Key Topics</div>
+      <div class="d-chip anim a3">Generative AI in marketing</div>
+      <div class="d-chip anim a4">Synthetic respondents</div>
+      <div class="d-chip anim a5">Digital twins</div>
+      <div class="d-chip anim a6">Conjoint analysis</div>
+      <div class="d-chip anim a7">Product design</div>
+      <div class="d-chip anim a7">Visual branding</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       9 · MEASUREMENT: RESEARCH
+  ══════════════════════════════════════════ -->
+  <section class="slide s-research">
+    <div class="s-research__left">
+      <div class="s-research__left-top">
+        <div class="s-research__stream-label">03 · Digital Marketing Measurement</div>
+        <div class="s-research__left-heading">Privacy is disrupting everything — and forcing better science</div>
+        <div class="s-research__context">
+          Cookie deprecation and privacy regulation are pushing firms back to marketing mix models.
+          My research asks: when do these models work, and when do they mislead?
+        </div>
+      </div>
+      <div class="s-research__papers">
+        <div class="s-research__papers-label">References</div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew, Padilla, and Shchetkina (2025), "Your MMM is Broken," working paper
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew, Padilla, and Campbell (2026), "Unified Marketing Measurement: How to Fuse Experimental and Marketing Mix Data," working paper
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dew, Ansari, and Li (2020), "Modeling Dynamic Heterogeneity Using Gaussian Processes," Journal of Marketing Research, 57(1), 55–77
+        </div>
+        <div class="paper-pill">
+          <div class="paper-pill__dot"></div>
+          Dynamic Marketing Mix Models (work in progress, with Shchetkina and Padilla)
+        </div>
+      </div>
+      <div class="s-research__stream-num">03</div>
+    </div>
+
+    <div class="s-research__right">
+      <div class="s-research__heading anim a1">Building and breaking marketing mix models</div>
+      <ul class="blist">
+        <li class="anim a2">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Marketing mix models (MMMs) are making a comeback:</strong> but can the data support the complex models practitioners are fitting? We urge caution — key effects like diminishing returns and time-varying effectiveness are often conflated.</div>
+        </li>
+        <li class="anim a3">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>The best solution?</strong> Combining MMMs with experiments — and we show exactly how to do this properly.</div>
+        </li>
+        <li class="anim a4">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Strategic experimentation (in progress):</strong> experiments are necessary but expensive. How do we design them well, run them at the right time, and measure true incrementality?</div>
+        </li>
+        <li class="anim a5">
+          <div class="blist__dot"></div>
+          <div class="blist__text"><strong>Dynamic consumer sensitivities:</strong> price elasticities and ad responsiveness change over time — ignoring this leads to systematically wrong conclusions. I've built models of this for both individual consumer and marketing mix data.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       10 · MEASUREMENT: TEACHING
+  ══════════════════════════════════════════ -->
+  <section class="slide s-teach-d">
+    <div class="s-teach-d__main">
+      <div class="eyebrow anim a1" style="color:var(--bay);margin-bottom:10px">03 · Digital Measurement · Teaching and Exec Ed</div>
+      <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;color:var(--blue);line-height:1.15;margin-bottom:18px" class="anim a2">Why experimentation should be central to every marketing org</div>
+      <div style="width:36px;height:2px;background:var(--red);margin-bottom:22px" class="anim a2"></div>
+      <ul class="blist">
+        <li class="anim a3"><div class="blist__dot"></div><div class="blist__text"><strong>Digital marketing fundamentals:</strong> ad types, metrics, auctions, cookies, and attribution — what every marketer should understand about how the digital advertising ecosystem works</div></li>
+        <li class="anim a4"><div class="blist__dot"></div><div class="blist__text"><strong>The challenge of measurement:</strong> why digital marketing is so hard to measure effectively — signal-to-noise issues, selection bias, and why most attribution models give you the wrong answer</div></li>
+        <li class="anim a5"><div class="blist__dot"></div><div class="blist__text"><strong>The case for experimentation:</strong> how badly things go without experiments, and how to make testing a cultural and organizational priority</div></li>
+        <li class="anim a6"><div class="blist__dot"></div><div class="blist__text"><strong>Marketing Mix Models:</strong> what they can and can't tell you, how to build them effectively, and how to avoid the most common misinterpretations in practice</div></li>
+      </ul>
+    </div>
+    <div class="s-teach-d__side">
+      <div class="s-teach-d__side-label">Key Topics</div>
+      <div class="d-chip anim a3">Digital marketing measurement</div>
+      <div class="d-chip anim a4">Marketing mix modeling</div>
+      <div class="d-chip anim a5">Experimentation and A/B testing</div>
+      <div class="d-chip anim a6">Attribution and incrementality</div>
+      <div class="d-chip anim a7">Privacy and the future of targeting</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       11 · INDUSTRY ENGAGEMENT & WHAT I BRING
+  ══════════════════════════════════════════ -->
+  <section class="slide s-impact">
+    <div class="s-impact__header">
+      <div class="s-impact__stripe"></div>
+      <div class="s-impact__header-inner">
+        <div>
+          <div class="eyebrow anim a1">Industry Engagement</div>
+          <div class="s-impact__heading anim a2">Collaborations with practice and invited talks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s-impact__body">
+      <div class="impact-col">
+        <div class="impact-col__label anim a2">Active Industry Collaborations</div>
+        <div class="engage-card anim a2">
+          <div class="engage-card__co">Microsoft</div>
+          <div class="engage-card__text"><strong>Part-time collaboration</strong> on marketing measurement and experimentation — working on live problems with the team</div>
+        </div>
+        <div class="engage-card anim a3">
+          <div class="engage-card__co">Google</div>
+          <div class="engage-card__text">Joint research on building <strong>better dynamic marketing mix models</strong></div>
+        </div>
+        <div class="engage-card anim a4">
+          <div class="engage-card__co">Others</div>
+          <div class="engage-card__text">Applied work with partners in <strong>ride-sharing, mobile gaming, fashion, and retail</strong></div>
+        </div>
+      </div>
+
+      <div class="impact-col">
+        <div class="impact-col__label anim a2">Invited Keynotes and Talks</div>
+        <div class="engage-card anim a2">
+          <div class="engage-card__co">TikTok</div>
+          <div class="engage-card__text">Influencer marketing research — who to work with, how to measure effectiveness, and what the data actually says</div>
+        </div>
+        <div class="engage-card anim a3">
+          <div class="engage-card__co">Amazon</div>
+          <div class="engage-card__text">Preference measurement and understanding consumer choice at scale</div>
+        </div>
+        <div class="engage-card anim a4">
+          <div class="engage-card__co">Microsoft</div>
+          <div class="engage-card__text">Digital marketing measurement — what works, what doesn't, and why experiments matter</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       12 · EXEC ED FIT
+  ══════════════════════════════════════════ -->
+  <section class="slide s-execed">
+    <div class="s-execed__header">
+      <div class="s-execed__stripe"></div>
+      <div class="s-execed__header-inner">
+        <div>
+          <div class="eyebrow anim a1">Where I Fit</div>
+          <div class="s-execed__heading anim a2">Potential modules and contributions to Exec Ed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s-execed__body">
+      <div class="module-card anim a2">
+        <div class="module-card__area">Area 01 · Predictive Analytics</div>
+        <div class="module-card__num-rule">
+          <div class="module-card__num">01</div><div class="module-card__rule"></div>
+        </div>
+        <div class="module-card__title">Customer Analytics and CRM</div>
+        <ul class="module-list">
+          <li>Customer lifetime value: measurement and growth</li>
+          <li>Managing churn and retention economics</li>
+          <li>Segmentation, targeting, and personalization</li>
+          <li>Predictive analytics and machine learning</li>
+        </ul>
+      </div>
+
+      <div class="module-card anim a3">
+        <div class="module-card__area">Area 02 · Generative AI</div>
+        <div class="module-card__num-rule">
+          <div class="module-card__num">02</div><div class="module-card__rule"></div>
+        </div>
+        <div class="module-card__title">AI for Branding and Marketing Research</div>
+        <ul class="module-list">
+          <li>Generative AI in marketing: promise and pitfalls</li>
+          <li>Synthetic respondents and digital twins</li>
+          <li>Conjoint analysis and product design</li>
+          <li>Visual branding and the science of design</li>
+        </ul>
+      </div>
+
+      <div class="module-card anim a4">
+        <div class="module-card__area">Area 03 · Measurement</div>
+        <div class="module-card__num-rule">
+          <div class="module-card__num">03</div><div class="module-card__rule"></div>
+        </div>
+        <div class="module-card__title">Digital Marketing Measurement</div>
+        <ul class="module-list">
+          <li>Digital marketing fundamentals and metrics</li>
+          <li>The case for experimentation</li>
+          <li>Marketing mix modeling: building and interpreting</li>
+          <li>Privacy, cookies and the future of targeting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       13 · CLOSE / Q&A
+  ══════════════════════════════════════════ -->
+  <section class="slide s-dark s-dark--close">
+    <div class="s-dark__bar">
+      <div class="wordmark">The Wharton School <span>University of Pennsylvania</span></div>
+    </div>
+    <div class="s-dark__body s-dark__body--close">
+      <div class="s-dark__close-left">
+        <div class="eyebrow anim a1" style="margin-bottom:18px">Let's Talk</div>
+        <div class="s-dark__close-headline anim a2">Questions and<br>Discussion</div>
+        <div class="s-dark__rule anim a3"></div>
+        <div class="anim a4" style="display:flex;flex-direction:column;gap:14px;margin-top:4px">
+          <div>
+            <div class="contact__label">Email</div>
+            <div class="contact__value">ryandew@wharton.upenn.edu</div>
+          </div>
+          <div>
+            <div class="contact__label">Website</div>
+            <div class="contact__value">www.rtdew.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="s-dark__close-right" style="align-items:center;justify-content:center;">
+        <img src="momo.jpeg" alt="Momo" class="anim a2" style="width:360px;height:360px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.15);">
+      </div>
+    </div>
+    <div class="s-dark__footer">
+      <div class="s-dark__foot-label">Thank You</div>
+      <div class="s-dark__foot-label">Wharton Exec Ed · 2026</div>
+    </div>
+  </section>
+
+</div></div><!-- /deck /stage -->
+
+<!-- ─── Chrome ────────────────────────────────────────────── -->
+<div id="chrome">
+  <div id="dots"></div>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <span id="counter">1 / 13</span>
+  <button id="print-btn" class="chrome-btn" title="PDF (P)">PDF</button>
+  <button id="fs-btn"    class="chrome-btn" title="Fullscreen (F)">⤢</button>
+</div>
+
+<script>
+  const slides  = Array.from(document.querySelectorAll('.slide'));
+  const total   = slides.length;
+  let current   = 0;
+  let animating = false;
+
+  const fill    = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter');
+  const dotsEl  = document.getElementById('dots');
+  const fsBtn   = document.getElementById('fs-btn');
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  });
+
+  function updateChrome() {
+    counter.textContent = `${current + 1} / ${total}`;
+    fill.style.width = `${((current + 1) / total) * 100}%`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function go(target) {
+    if (animating || target === current || target < 0 || target >= total) return;
+    animating = true;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('leaving');
+    current = target;
+    slides[current].classList.add('active');
+    updateChrome();
+    setTimeout(() => {
+      document.querySelectorAll('.slide.leaving').forEach(s => s.classList.remove('leaving'));
+      animating = false;
+    }, 480);
+  }
+
+  const next = () => go(current + 1);
+  const prev = () => go(current - 1);
+
+  document.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft':  case 'PageUp':             e.preventDefault(); prev(); break;
+      case 'Home': go(0);         break;
+      case 'End':  go(total - 1); break;
+      case 'f': case 'F': toggleFullscreen(); break;
+      case 'p': case 'P': printDeck();        break;
+    }
+  });
+
+  document.getElementById('deck').addEventListener('click', e => {
+    e.clientX > window.innerWidth / 2 ? next() : prev();
+  });
+
+  function printDeck() {
+    // @media print CSS handles all layout overrides; just open the dialog.
+    window.print();
+  }
+  document.getElementById('print-btn').addEventListener('click', printDeck);
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+  document.addEventListener('fullscreenchange', () => {
+    const isFs = !!document.fullscreenElement;
+    fsBtn.textContent = isFs ? '⤡' : '⤢';
+    document.getElementById('chrome').style.display = isFs ? 'none' : '';
+    scaleDeck();
+  });
+  fsBtn.addEventListener('click', toggleFullscreen);
+
+  function scaleDeck() {
+    const deck = document.getElementById('deck');
+    const chromeH = document.fullscreenElement ? 0 : 36;
+    const scale = Math.min(window.innerWidth / 1280, (window.innerHeight - chromeH) / 720);
+    deck.style.transform = `scale(${scale})`;
+    deck.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', scaleDeck);
+  scaleDeck();
+  updateChrome();
+</script>
+</body>
+</html>
