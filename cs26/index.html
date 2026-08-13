@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Unified Marketing Measurement — Choice Symposium 2026</title>
+<script>MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] } };</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --blue:   #011F5B;   /* Wharton navy — headings, structure */
+  --red:    #990000;   /* Wharton red — rules, sub-bullets, punchlines */
+  --bay:    #004C97;   /* secondary blue — sparing use */
+  --ink:    #1a1a1a;   /* body text */
+  --muted:  #5a5f6e;   /* captions, footnotes, bars */
+  --paper:  #ffffff;   /* slide background */
+  --wash:   #f4f4f0;   /* panels, tinted slides */
+  --rule:   #d8d8d2;   /* hairlines */
+  --serif: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+}
+
+/* ── RESET ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0f1117; font-family: var(--sans); color: var(--ink); }
+
+/* ── STAGE / DECK ────────────────────────────────────────────── */
+#stage { position: fixed; inset: 0; bottom: 44px; display: flex; align-items: center; justify-content: center; }
+#deck { position: relative; width: var(--slide-w); height: var(--slide-h); overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.7); transform-origin: center center; flex-shrink: 0; }
+
+/* ── SLIDE BASE ──────────────────────────────────────────────── */
+.slide { position: absolute; inset: 0; width: var(--slide-w); height: var(--slide-h); background: var(--paper); opacity: 0; pointer-events: none; transition: opacity 0.35s ease; overflow: hidden; }
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.slide.active .anim { animation: fadeUp 0.5s ease both; }
+.slide.active .a1 { animation-delay: 0.05s; }
+.slide.active .a2 { animation-delay: 0.13s; }
+.slide.active .a3 { animation-delay: 0.22s; }
+.slide.active .a4 { animation-delay: 0.31s; }
+.slide.active .a5 { animation-delay: 0.40s; }
+.slide.active .a6 { animation-delay: 0.50s; }
+.slide.active .a7 { animation-delay: 0.60s; }
+
+/* ── PROGRESSIVE REVEALS ─────────────────────────────────────── */
+.step { opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.step.visible { opacity: 1; transform: translateY(0); }
+
+/* ── SHARED ELEMENTS ─────────────────────────────────────────── */
+.eyebrow { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.eyebrow--bay { color: var(--bay); }
+
+.titlerule { width: 88px; height: 4px; background: var(--red); margin: 2px 0 26px; }
+
+.blist { list-style: none; display: flex; flex-direction: column; gap: 19px; }
+.blist li { display: flex; gap: 18px; align-items: flex-start; }
+.blist__dot { flex-shrink: 0; width: 9px; height: 9px; background: var(--blue); margin-top: 11px; }
+.blist__text { font-size: var(--slide-font-size, 21px); font-weight: 400; line-height: 1.45; color: var(--ink); max-width: 1060px; }
+.blist__text strong { font-weight: 700; color: var(--blue); }
+.blist__text em { font-style: italic; }
+.blist__text .redword { color: var(--red); font-weight: 700; }
+.blist__sub { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-left: 4px; }
+.blist__sub li { display: flex; gap: 14px; align-items: flex-start; }
+.blist__sub__dot { flex-shrink: 0; width: 7px; height: 7px; background: var(--red); margin-top: 9px; }
+.blist__sub__text { font-size: calc(var(--slide-font-size, 21px) * 0.85); color: var(--muted); line-height: 1.5; }
+
+.callout-box { background: var(--wash); border-left: 5px solid var(--red); padding: 18px 26px; font-family: var(--serif); font-size: calc(var(--slide-font-size, 21px) * 1.02); font-weight: 400; color: var(--blue); line-height: 1.5; margin-top: 28px; margin-bottom: 8px; max-width: 1040px; }
+
+.footnote { font-family: var(--serif); font-style: italic; font-size: 14.5px; color: var(--muted); border-top: 1px solid var(--rule); margin-top: auto; padding-top: 12px; line-height: 1.5; }
+
+/* ── MATH (MathJax) ──────────────────────────────────────────── */
+.eq-display { text-align: center; font-size: 27px; color: var(--ink); margin: 32px auto 30px; max-width: 1040px; width: 100%; }
+.eq-display mjx-container { margin: 0 !important; }
+.eq-note { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+
+/* ── S-DARK — title (quiet, light, serif) ────────────────────── */
+.s-dark { display: grid; grid-template-rows: 56px 1fr 56px; background: var(--paper); overflow: hidden; }
+.s-dark__bar { display: flex; align-items: center; padding: 0 76px; border-bottom: 1px solid var(--rule); font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.s-dark__body { display: flex; flex-direction: column; justify-content: center; padding: 0 76px; }
+.s-dark__rule { width: 88px; height: 4px; background: var(--red); margin: 24px 0 28px; }
+.s-dark__headline { font-family: var(--serif); font-size: 46px; font-weight: 700; line-height: 1.18; color: var(--blue); margin-bottom: 10px; max-width: 1080px; }
+.s-dark__sub { font-family: var(--sans); font-size: 22px; font-weight: 400; line-height: 1.55; color: var(--muted); max-width: 920px; }
+.s-dark__footer { display: flex; align-items: center; padding: 0 76px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* ── S-FOCUS — hinges, claims, thank-you ─────────────────────── */
+.s-focus { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--wash); text-align: center; padding: 80px; overflow: hidden; gap: 0; }
+.s-focus__eyebrow { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 30px; }
+.s-focus__text { font-family: var(--serif); font-size: 44px; font-weight: 700; line-height: 1.22; color: var(--blue); max-width: 1000px; margin-bottom: 26px; }
+.s-focus__sub { font-family: var(--sans); font-size: 21px; font-weight: 400; line-height: 1.55; color: var(--muted); max-width: 860px; margin-bottom: 10px; }
+.s-focus__sub + .s-focus__sub { margin-top: -2px; }
+.s-focus__note { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--muted); margin-top: 30px; }
+.qr-wrap { background: var(--paper); border: 1px solid var(--rule); padding: 18px; margin-top: 34px; display: flex; flex-direction: column; align-items: center; }
+.qr-wrap svg { display: block; margin: 0 auto; }
+.qr-caption { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-top: 12px; letter-spacing: 0.04em; }
+
+/* ── S-CONTENT — the workhorse ───────────────────────────────── */
+.s-content { display: grid; grid-template-rows: 46px 1fr; background: var(--paper); }
+.s-content__bar { display: flex; align-items: center; padding: 0 76px; background: var(--paper); border-bottom: 1px solid var(--rule); font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.s-content__body { padding: 40px 76px 34px; display: flex; flex-direction: column; overflow: hidden; }
+.s-content__heading { font-family: var(--serif); font-size: 36px; font-weight: 700; line-height: 1.2; color: var(--blue); margin-bottom: 14px; max-width: 1090px; }
+.s-content__sub { font-family: var(--sans); font-size: var(--slide-font-size, 20px); font-weight: 400; color: var(--muted); line-height: 1.5; margin-bottom: 20px; max-width: 1020px; }
+.s-content__body .blist { margin-top: 4px; }
+.s-content__img-wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; flex: 1; min-height: 0; align-items: stretch; }
+.s-content__img-left { display: flex; flex-direction: column; min-height: 0; }
+.s-content__img-right { display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateX(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.slide:has(.step.visible):not(:has(.img-trigger)) .s-content__img-right { opacity: 1; transform: translateX(0); }
+.slide:has(.img-trigger.visible) .s-content__img-right { opacity: 1; transform: translateX(0); }
+.img-trigger { display: none !important; }
+.s-content__img-right img { width: auto; height: auto; max-width: 100%; max-height: 540px; object-fit: contain; }
+
+/* ── S-COMPARE — two-column contrasts ────────────────────────── */
+.s-compare { display: grid; grid-template-rows: 88px 1fr; background: var(--paper); }
+.s-compare__bar { display: flex; align-items: center; padding: 0 76px; background: var(--paper); border-bottom: 1px solid var(--rule); font-family: var(--serif); font-size: 29px; font-weight: 700; color: var(--blue); }
+.s-compare__body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px 76px 34px; }
+.compare-col { background: var(--wash); border-top: 5px solid var(--blue); padding: 24px 26px 20px; display: flex; flex-direction: column; }
+.compare-col--alt { border-top-color: var(--red); }
+.compare-col__header { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--blue); margin-bottom: 4px; line-height: 1.25; }
+.compare-col--alt .compare-col__header { color: var(--red); }
+.compare-col__sub { font-family: var(--sans); font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+.compare-col__items { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.compare-col__item { font-family: var(--sans); font-size: var(--slide-font-size, 18.5px); color: var(--ink); line-height: 1.5; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.compare-col__item:last-child { border-bottom: none; }
+.compare-col__item strong { font-weight: 700; color: var(--blue); }
+.compare-col--alt .compare-col__item strong { color: var(--red); }
+.compare-col__item em { font-style: italic; }
+.compare-col__note { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); border-top: 1px dashed var(--rule); padding-top: 12px; margin-top: 12px; }
+.s-compare__footnote { grid-column: 1 / -1; font-family: var(--serif); font-style: italic; font-size: 14.5px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 10px; align-self: end; }
+.s-compare__body--withnote { grid-template-rows: 1fr auto; }
+
+/* ── S-IMAGE — full-bleed image beat ─────────────────────────── */
+.s-image { display: flex; align-items: center; justify-content: center; background: #0b0d13; }
+.s-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* ── TAKEAWAYS ───────────────────────────────────────────────── */
+.takeaways { display: flex; flex-direction: column; margin-top: 14px; max-width: 1060px; }
+.takeaway { display: flex; align-items: baseline; gap: 26px; padding: 25px 0; border-bottom: 1px solid var(--rule); }
+.takeaway:last-child { border-bottom: none; }
+.takeaway__num { font-family: var(--serif); font-size: 23px; font-weight: 700; color: var(--red); flex-shrink: 0; }
+.takeaway__text { font-family: var(--serif); font-size: 25px; font-weight: 400; line-height: 1.4; color: var(--blue); }
+
+/* ── STRIPS (jmap) ───────────────────────────────────────────── */
+.jmap { display: flex; align-items: stretch; gap: 8px; margin: 10px 0 6px; }
+.jmap__chip { flex: 1; background: var(--wash); border: 1px solid var(--rule); padding: 14px 10px; text-align: center; display: flex; flex-direction: column; gap: 5px; justify-content: center; min-width: 0; }
+.jmap__chip strong { font-size: 16.5px; color: var(--blue); line-height: 1.25; }
+.jmap__chip span { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.jmap__chip--end { background: var(--blue); border-color: var(--blue); }
+.jmap__chip--end strong { color: #fff; }
+.jmap__chip--end span { color: rgba(255,255,255,0.65); }
+.jmap__arrow { align-self: center; color: var(--muted); font-size: 17px; flex: 0 0 auto; }
+.jmap-label { font-family: var(--sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 16px 0 2px; }
+.jmap-label--red { color: var(--red); }
+
+/* ── SVG FIGURES ─────────────────────────────────────────────── */
+.svgfig { display: flex; align-items: center; justify-content: center; min-height: 0; }
+.svgfig svg { max-width: 100%; height: auto; }
+
+/* tools collage (frame 6) */
+.collage { position: relative; width: 470px; height: 500px; }
+.collage img { position: absolute; border: 1px solid var(--rule); background: #fff; }
+
+/* landscape slide: the robot appears together with the second bullet */
+#landscape-slide:has(.blist li:nth-child(2).visible) .s-content__img-right { opacity: 1; transform: translateX(0); }
+
+/* posterior figures (endogeneity frame): each group appears with its bullet */
+#post-slide .figrow { display: flex; gap: 18px; align-items: center; justify-content: center; flex: 1; min-height: 0; margin-top: 12px; }
+#post-slide .figrow img { max-height: 285px; width: auto; max-width: 100%; }
+#post-slide .fg2 img { max-height: 245px; }
+#post-slide .fg1, #post-slide .fg2, #post-slide .fg3 { display: flex; gap: 18px; opacity: 0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; min-width: 0; }
+#post-slide:has(.blist li:nth-child(1).visible) .fg1 { opacity: 1; transform: none; }
+#post-slide:has(.blist li:nth-child(2).visible) .fg2 { opacity: 1; transform: none; }
+#post-slide:has(.blist li:nth-child(3).visible) .fg3 { opacity: 1; transform: none; }
+
+/* figure placeholder — awaiting a real export from the paper repo */
+.figure-placeholder { border: 2px dashed var(--rule); min-height: 90px; display: flex; align-items: center; justify-content: center; background: var(--wash); color: var(--muted); font-size: 15px; font-style: italic; margin-top: 16px; text-align: center; padding: 18px; line-height: 1.6; }
+
+/* DGP truth panel (frame 8) */
+.dgp-truth { background: var(--wash); border-left: 5px solid var(--red); padding: 20px 24px; }
+.dgp-truth__label { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+
+/* ── NAV CHROME ──────────────────────────────────────────────── */
+#chrome { position: fixed; bottom: 0; left: 0; right: 0; height: 44px; background: rgba(5,5,15,0.88); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; gap: 18px; z-index: 1000; }
+#dots { display: flex; gap: 5px; align-items: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.2s; }
+.dot.active { background: #fff; transform: scale(1.35); }
+#progress-track { width: 100px; height: 3px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--red); border-radius: 3px; transition: width 0.3s ease; width: 0%; }
+#counter { font-size: 12px; color: rgba(255,255,255,0.4); min-width: 52px; text-align: center; font-family: var(--sans); }
+.chrome-btn { background: transparent; border: none; color: rgba(255,255,255,0.45); cursor: pointer; font-size: 15px; padding: 4px 6px; transition: color 0.2s; }
+.chrome-btn:hover { color: #fff; }
+
+/* ── PRINT ───────────────────────────────────────────────────── */
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  html, body { width: 1280px; height: auto; overflow: visible; background: #fff; margin: 0; }
+  #stage { position: static; display: block; transform: none; bottom: 0; }
+  #deck { position: static; width: 1280px; height: auto; overflow: visible; box-shadow: none; transform: none !important; }
+  #chrome { display: none !important; }
+  .slide { position: relative !important; transform: none !important; page-break-after: always; break-after: page; width: 1280px !important; height: 720px !important; overflow: hidden !important; opacity: 1 !important; pointer-events: none !important; }
+  /* flat handout: force everything visible — animated mode (body.print-animated) lets per-clone .visible classes drive the builds instead */
+  body:not(.print-animated) .step { opacity: 1 !important; transform: none !important; }
+  .slide.s-dark    { display: grid !important; }
+  .slide.s-focus   { display: flex !important; }
+  .slide.s-content { display: grid !important; }
+  .slide.s-compare { display: grid !important; }
+  .slide.s-image   { display: flex !important; }
+  .jmap__arrow { opacity: 1 !important; transform: none !important; }
+  body:not(.print-animated) .s-content__img-right { opacity: 1 !important; transform: none !important; }
+  body:not(.print-animated) #post-slide .fg1, body:not(.print-animated) #post-slide .fg2, body:not(.print-animated) #post-slide .fg3 { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="deck">
+
+<!-- ═══ F1 · TITLE ═══ -->
+<section class="slide s-dark active" style="grid-template-rows: 1fr 56px;">
+  <div class="s-dark__body">
+    <div class="eyebrow anim a2">2026 Choice Symposium · Vail, Colorado</div>
+    <h1 class="s-dark__headline anim a3">Unified Marketing Measurement: Experiments, Models, and the Purchase Funnel</h1>
+    <div class="s-dark__rule anim a4"></div>
+    <p class="s-dark__sub anim a5" style="font-size:20px; line-height:1.75; color:var(--ink);"><strong style="color:var(--blue);">Ryan Dew</strong> — The Wharton School, University of Pennsylvania</p>
+  </div>
+  <div class="s-dark__footer anim a6">Session · Information Consumption: A Customer-Journey View of Information Choice</div>
+</section>
+
+<!-- ═══ F2 · TWO FUNNELS ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Motivation</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Marketing as information provision</h2>
+    <div class="titlerule anim a3"></div>
+    <div style="margin-top:22px;">
+      <div class="jmap-label">The purchase funnel</div>
+      <div class="jmap">
+        <div class="jmap__chip"><strong>Awareness</strong><span>brand advertising, reach media</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip"><strong>Consideration</strong><span>content, search, reviews</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip jmap__chip--end"><strong>Purchase</strong><span>retargeting, promos, checkout</span></div>
+      </div>
+    </div>
+    <div style="margin-top:56px;">
+      <div class="jmap-label jmap-label--red">This session's information journey</div>
+      <div class="jmap">
+        <div class="jmap__chip"><strong>Attention</strong><span>exposure, salience</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip"><strong>Credibility</strong><span>source, trust</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip"><strong>Beliefs</strong><span>formation, updating</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip jmap__chip--end"><strong>Behavior</strong><span>action, sharing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F3 · THIS TALK (journey strip fades out in the crossfade; funnel holds position) ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar">UMM · Motivation</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading">Marketing as information provision</h2>
+    <div class="titlerule"></div>
+    <div style="margin-top:22px;">
+      <div class="jmap-label">The purchase funnel</div>
+      <div class="jmap">
+        <div class="jmap__chip"><strong>Awareness</strong><span>brand advertising, reach media</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip"><strong>Consideration</strong><span>content, search, reviews</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip jmap__chip--end"><strong>Purchase</strong><span>retargeting, promos, checkout</span></div>
+      </div>
+    </div>
+    <ul class="blist" style="margin-top:30px; gap:15px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Firms pay to place information at <strong>every stage</strong>: ads, content, reminders</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text"><strong>This talk:</strong> How do we measure ad performance, and use it to optimize spending?
+        <ul class="blist__sub">
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text"><strong style="color:var(--blue);">Incrementality:</strong> the causal effect of marketing on outcomes, the number every budget decision needs</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">The big question: how do we measure it?</div></li>
+        </ul>
+      </div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ F3 · THE MEASUREMENT QUESTION (hinge) ═══ -->
+<section class="slide s-focus">
+  <div class="s-focus__eyebrow anim a1">The Measurement Problem</div>
+  <p class="s-focus__text anim a2">Which marketing information actually changed behavior?</p>
+</section>
+
+<!-- ═══ F4 · THE CHANGING LANDSCAPE ═══ -->
+<section class="slide s-content" id="landscape-slide">
+  <span class="img-trigger"></span>
+  <div class="s-content__bar anim a1">UMM · Motivation</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">The changing landscape</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="s-content__img-wrap">
+      <div class="s-content__img-left">
+        <ul class="blist" style="--slide-font-size:21.5px;">
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">For 10+ years, <strong>individual-level trackability</strong> was the engine of marketing measurement</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">&ldquo;The cookie-free future&rdquo;: Apple's App Tracking Transparency (2021), third-party cookie deprecation, GDPR / CCPA</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">&hellip;and user-level attribution was <em>never causal</em> to begin with</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text"><span class="redword">Result: huge resurgence in models based on aggregate data</span></div></li>
+        </ul>
+      </div>
+      <div class="s-content__img-right" style="width:430px;">
+        <img src="img/cookie_robot.jpg" alt="Cookie-hoarding robot in a futuristic city">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F5 · RETURN OF THE MMM (full-bleed beat) ═══ -->
+<!-- delivery: one beat of laughter, move on -->
+<section class="slide s-image">
+  <img src="img/return_mmm_poster.jpg" alt="The Return of the Marketing Mix Model — retro sci-fi poster">
+</section>
+
+<!-- ═══ F7 · MARKETING MIX MODELS (background, mirrors the MKSC deck slide — endogeneity bullet deliberately omitted; the later hinge delivers it) ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Background</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Marketing mix models</h2>
+    <div class="titlerule anim a3"></div>
+    <ul class="blist" style="--slide-font-size:21px; gap:16px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Very long history in marketing<br><span style="font-size:14px; color:var(--bay);">Borden (1964), Palda (1965), Bultez &amp; Naert (1979), Little (1979), Winer (1979), &hellip;, Hanssens et al. (2003), &hellip;</span></div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text" style="flex:1;">At its heart: just regression
+        <div class="eq-display" style="font-size:21px; margin:14px auto 2px;">$$y_t = \sum_j \beta_j\, x_{jt} + \epsilon_t \quad\text{&mdash; or &mdash;}\quad \log y_t = \sum_j \beta_j \log x_{jt} + \epsilon_t$$</div>
+      </div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">&hellip;with many well-documented <strong style="color:var(--red);">issues and extensions</strong>
+        <ul class="blist__sub" style="margin-top:12px; gap:11px;">
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text" style="font-size:17.5px; color:var(--ink);"><strong>Long-term effects</strong>, often captured through AdStock: \(S(x_t; L, \alpha) = \sum_{\ell=0}^{L-1} \alpha^{\ell} x_{t-\ell} \,\big/ \sum_{\ell=0}^{L-1} \alpha^{\ell}\)</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text" style="font-size:17.5px; color:var(--ink);"><strong>Nonlinear</strong> effects: \(y_t = \sum_j f_j(x_{jt}) + \epsilon_t\)</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text" style="font-size:17.5px; color:var(--ink);"><strong>Time-varying</strong> effects: \(y_t = \sum_j \beta_{jt}\, x_{jt} + \epsilon_t\)</div></li>
+        </ul>
+      </div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ F8 · THE NEW STACK ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Motivation</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">The new stack: MMMs + experiments</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="s-content__img-wrap">
+      <div class="s-content__img-left">
+        <ul class="blist" style="--slide-font-size:21px; gap:16px;">
+          <li class="step"><div class="blist__dot"></div><div class="blist__text"><strong>MMMs:</strong> many new packages and providers</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">Modern probabilistic-ML tooling from Google, Meta, Uber, PyMC&hellip;</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text"><strong>Experiments:</strong> lift tests &amp; geo holdouts, the causal gold standard, but sparse and costly</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">Platform guidance: use experiments to &ldquo;<strong>calibrate</strong>&rdquo; the MMM
+            <ul class="blist__sub">
+              <li><div class="blist__sub__dot"></div><div class="blist__sub__text">e.g., Meridian: experiment point estimate &rarr; ROI prior mean, SE &rarr; prior SD (Zhang et al. 2024); Robyn <span style="font-family:monospace; font-size:0.85em;">calibration_input</span></div></li>
+            </ul>
+          </div></li>
+        </ul>
+        <p class="step" style="font-family:var(--serif); color:var(--red); font-size:27px; font-weight:700; margin:34px auto 0; text-align:center;">How can experiments best inform MMMs?</p>
+      </div>
+      <div class="s-content__img-right">
+        <div class="collage">
+          <img src="img/orbit.png"    alt="Uber Orbit"          style="top:0;    left:0;   width:185px; z-index:1;">
+          <img src="img/robyn.png"    alt="Meta Robyn"          style="top:66px; left:112px; width:358px; z-index:2;">
+          <img src="img/pymc.png"     alt="PyMC-Marketing"      style="top:162px; left:0;  width:215px; z-index:3;">
+          <img src="img/meridian.png" alt="Google Meridian"     style="top:306px; left:100px; width:370px; z-index:4;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F9 · KEY PROBLEM (hinge — bare statement per Ryan) ═══ -->
+<section class="slide s-focus">
+  <p class="s-focus__text anim a1">A key problem in MMMs:<br>spending is chosen, not assigned.</p>
+</section>
+
+<!-- ═══ F10 · THIS TALK: TWO PAPERS ═══ -->
+<section class="slide s-compare">
+  <div class="s-compare__bar anim a1">My recent research: MMMs + experimentation</div>
+  <div class="s-compare__body" style="--slide-font-size:20px;">
+    <div class="compare-col step">
+      <div class="compare-col__header">Identification of Nonlinear and Time-varying Effects in MMMs</div>
+      <div class="compare-col__sub">with Nicolas Padilla &amp; Anya Shchetkina</div>
+      <div class="compare-col__items">
+        <div class="compare-col__item">Are modern MMMs <strong>identified</strong> from the data they're fit on?</div>
+        <div class="compare-col__item">We show <strong>nonlinear</strong> and <strong>time-varying</strong> effects are often <em>observationally equivalent</em></div>
+        <div class="compare-col__item">This observational equivalence has a cost: <strong>optimizations differ</strong></div>
+        <div class="compare-col__item">Fix: a specific <strong>incrementality test</strong> for model selection</div>
+      </div>
+      <div class="compare-col__note">What can aggregate data tell you about the shape of response?</div>
+    </div>
+    <div class="compare-col compare-col--alt step">
+      <div class="compare-col__header">Unified Marketing Measurement</div>
+      <div class="compare-col__sub">with Connor Campbell &amp; Nicolas Padilla</div>
+      <div class="compare-col__items">
+        <div class="compare-col__item">Fuse the experiments firms already run <strong>into</strong> the MMM</div>
+        <div class="compare-col__item">Identify <strong>time-varying causal</strong> effectiveness</div>
+        <div class="compare-col__item">Learn <strong>when the next experiment</strong> is needed</div>
+      </div>
+      <div class="compare-col__note">What can experiments fix about what aggregate data can't say?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F11 · UMM MODEL ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Model</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Unified marketing measurement</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="step" style="background:var(--wash); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:16px 24px; margin:34px 0 30px; text-align:center;">
+      <div class="eq-display" style="margin:0 auto; font-size:26px;">
+      $$\log y_t \;=\; \beta_t \log x_t \;+\; \xi_t, \qquad \operatorname{corr}(\log x_t,\, \xi_t) \;=\; \rho_t$$
+      </div>
+    </div>
+    <ul class="blist" style="--slide-font-size:20px; gap:10px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">\(\beta_t\): <strong>time-varying effectiveness</strong>, the elasticity of revenue to spend</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">\(\xi_t\): demand shocks we don't observe</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">\(\rho_t\): <strong style="color:var(--red);">time-varying endogeneity</strong>, how strongly spend chases the shocks</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">To model dynamics, we treat \(\beta(t)\) and \(\rho(t)\) as functions of time, and model them with <strong>Gaussian processes</strong>
+        <ul class="blist__sub" style="margin-top:8px; gap:6px;">
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">Bayesian way of modeling unknown functions</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">assumes smoothness over time</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">easy to use and estimate, but not strictly necessary (can use any time series model)</div></li>
+        </ul>
+      </div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ F11 · EXPERIMENTS AS MEASUREMENTS ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Model</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Experiments as measurements</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="eq-display anim a4">
+      $$b_\tau \;=\; g(\beta_\tau) \;+\; \varepsilon_\tau, \qquad \tau \in \mathcal{T}$$
+    </div>
+    <ul class="blist" style="--slide-font-size:21px; gap:14px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">\(b_\tau\): the lift estimates the firm <em>already has</em>, at the times it happened to test</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">\(g(\cdot)\) is the <strong>bridge</strong>: geo readouts (overlapping window averages), RCT lifts (spend &rarr; exposure delivery), on/off flighting (IV)</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Experiments <strong>anchor</strong> \(\beta\) locally; the MMM time series shapes it between anchors</div></li>
+    </ul>
+    <div class="callout-box step" style="margin-top:20px;"><strong style="color:var(--red);">Assumption:</strong> the experiment and the MMM measure the <em>same</em> underlying effectiveness.</div>
+  </div>
+</section>
+
+<!-- ═══ ENDOGENEITY = UNCERTAINTY, NOT BIAS ═══
+     HIDDEN per Ryan (time pressure; the "one experiment is enough" frame now carries
+     the identification story via its three-panel figure). To restore: change the
+     template tags back to nothing (delete <template ...> and </template>). -->
+<template data-hidden-slide="endogeneity-posteriors">
+<section class="slide s-content" id="post-slide">
+  <div class="s-content__bar anim a1">UMM · Results</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Model the endogeneity, and bias becomes uncertainty</h2>
+    <ul class="blist" style="--slide-font-size:20.5px; gap:12px; margin-top:2px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Assume spend exogenous &rarr; <strong>precise but wrong</strong></div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Model the endogeneity &rarr; <em>unidentified</em>: \((\beta, \rho)\) trade off; more observational data does <span class="redword">not</span> help!</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Add <strong>one experiment</strong> &rarr; the posterior collapses onto the truth</div></li>
+    </ul>
+    <div class="figrow">
+      <div class="fg1"><img src="img/static_identification-1.png" alt="Traditional model: precise posterior missing the true beta"></div>
+      <div class="fg2"><img src="img/static_identification-2.png" alt="Fully specified model: diffuse beta posterior covering the truth"><img src="img/static_identification-3.png" alt="Fully specified model: rho posterior spanning its range"></div>
+      <div class="fg3"><img src="img/static_onetest_identification-1.png" alt="One experiment: posterior collapses onto the true beta"></div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- ═══ F13 · ONE EXPERIMENT ANCHORS THE PATH ═══ -->
+<section class="slide s-content" id="anchor-slide">
+  <div class="s-content__bar anim a1">UMM · Results</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">With static endogeneity, one experiment is enough</h2>
+    <ul class="blist" style="--slide-font-size:22px; gap:14px; margin-top:4px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">MMM alone: the <strong>shape</strong> of \(\beta(t)\) is learnable; the <strong>level</strong> is not</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">One anchor pins the level; constant \(\rho\) propagates it across the horizon &nbsp;&rArr;&nbsp; <em>identification is a one-shot problem</em></div></li>
+    </ul>
+    <div class="step svgfig" style="flex:1; min-height:0; margin-top:14px;">
+      <img src="img/dynamic_and_endogeneous_unknown_nodata_1_test_draws_slides-1.png" alt="Posterior draws of beta over time: MMM only, one experiment only, and both fused" style="max-height:320px; max-width:100%;">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F14 · DYNAMIC ENDOGENEITY ═══ -->
+<section class="slide s-content" id="cadence-slide">
+  <div class="s-content__bar anim a1">UMM · Results</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Dynamic endogeneity: one test is not enough</h2>
+    <ul class="blist" style="--slide-font-size:21px; gap:12px; margin-top:4px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Why would \(\rho\) drift? Markets shift, budget rules adapt, and <strong>algorithmic buying</strong> chases converters: endogeneity <em>by design</em></div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">One anchor is local: <em>confounding drift masquerades as effectiveness drift</em></div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Tests spread over time disentangle the two paths</div></li>
+    </ul>
+    <div class="step svgfig" style="flex:1; min-height:0; margin-top:10px;">
+      <img src="img/dynamic_endogeneity_unknown_nodata_per_test_draws_slides-1.png" alt="Posterior draws of beta over time with one, two, and three experiments" style="max-height:265px; max-width:100%;">
+    </div>
+    <div class="callout-box step" style="margin-top:10px;"><strong style="color:var(--red);">Implication:</strong> posterior uncertainty tells you <em>when to run the next experiment</em>.</div>
+  </div>
+</section>
+
+<!-- ═══ F15 · CONFLATION CODA (paper 1 highlight) ═══
+     HIDDEN per Ryan (didn't fit the flow). To restore: change the template tag
+     below from <template> back to <section class="slide s-content"> and the
+     closing tag to match. Content preserved intact. -->
+<template data-hidden-slide="conflation-coda">
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Model Selection</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Experiments also select the model</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="s-content__img-wrap">
+      <div class="s-content__img-left">
+        <ul class="blist" style="--slide-font-size:20.5px; gap:16px;">
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">Those <strong>nonlinear</strong> and <strong>time-varying</strong> extensions? On standard MMM data they are often <em>observationally equivalent</em>: indistinguishable fits, in and out of sample</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text">But not under intervention: <strong>different optimal budgets</strong>, losing <span class="redword">5.7% of weekly revenue</span> on average (up to 23&ndash;60%)</div></li>
+          <li class="step"><div class="blist__dot"></div><div class="blist__text"><strong>Fix:</strong> a <em>maximal-separation</em> test, spending where the models <em>disagree</em>; separation in 1&ndash;2 periods</div></li>
+        </ul>
+      </div>
+      <div class="s-content__img-right" style="width:460px;">
+        <img src="img/p1_fits.png" alt="Beer and Cookies brands: nonlinear and time-varying model fits are indistinguishable" style="max-height:500px;">
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- ═══ F15 · DISCUSSION HINGE ═══ -->
+<section class="slide s-focus">
+  <div class="s-focus__eyebrow anim a1">Discussion</div>
+  <p class="s-focus__text anim a2">Are experiments and MMMs even measuring the same thing?</p>
+  <p class="s-focus__sub anim a3">We assumed yes. Practice often talks as if no.</p>
+</section>
+
+<!-- ═══ F17 · FOLK VIEW VS OUR ASSUMPTION ═══ -->
+<section class="slide s-compare">
+  <div class="s-compare__bar anim a1">The folk view vs. our assumption</div>
+  <div class="s-compare__body" style="--slide-font-size:20px;">
+    <div class="compare-col step">
+      <div class="compare-col__header">The folk view</div>
+      <div class="compare-col__items">
+        <div class="compare-col__item">Experiments &amp; attribution &rarr; <strong>performance</strong>: bottom-funnel, short-run, in-market shoppers</div>
+        <div class="compare-col__item">MMM &rarr; <strong>top-funnel</strong>: long-run, &ldquo;future demand&rdquo;</div>
+        <div class="compare-col__item">&ldquo;They measure <em>different things</em>&rdquo;</div>
+      </div>
+      <div class="compare-col__note" style="font-size:21px; color:var(--blue); line-height:1.45;">If so, calibrating one with the other is incoherent.</div>
+    </div>
+    <div class="compare-col compare-col--alt step">
+      <div class="compare-col__header">Our assumption</div>
+      <div class="compare-col__items">
+        <div class="compare-col__item"><strong>One incrementality</strong>, seen through different instruments</div>
+        <div class="compare-col__item">Differences are <strong>lag, outcome, population, scale</strong>: exactly what \(g(\cdot)\) encodes</div>
+        <div class="compare-col__item">We assume convertibility; we do not <em>test</em> it</div>
+      </div>
+      <div class="compare-col__note" style="font-size:21px; color:var(--blue); line-height:1.45;">If so, the folk split is a statement about bias and power, not two truths.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F18 · IS INFORMATION ACQUISITION DOWNWEIGHTED? ═══ -->
+<!-- cue: protect 90 seconds for this — it's the discussion payload -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Discussion</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Is information acquisition being downweighted?</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="anim a4" style="margin-bottom:4px;">
+      <div class="jmap-label">The purchase funnel</div>
+      <div class="jmap">
+        <div class="jmap__chip"><strong>Awareness</strong><span>brand advertising, reach media</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip"><strong>Consideration</strong><span>content, search, reviews</span></div>
+        <div class="jmap__arrow">&rarr;</div>
+        <div class="jmap__chip jmap__chip--end"><strong>Purchase</strong><span>retargeting, promos, checkout</span></div>
+      </div>
+    </div>
+    <ul class="blist" style="--slide-font-size:20.5px; gap:13px; margin-top:24px;">
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">Top of funnel = <strong>awareness</strong> = information acquisition</div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">It's where <em>both</em> instruments are weakest: effects are slow, small per period, equilibrium-like
+        <ul class="blist__sub">
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">brands that go dark hold roughly steady for 1&ndash;2 years, <em>then</em> erode; a one-quarter test reads &ldquo;no effect&rdquo;</div></li>
+        </ul>
+      </div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">A good example: <strong>brand advertising</strong>
+        <ul class="blist__sub">
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">CMOs prioritize performance over brand roughly 2.5:1 (Gartner 2025)</div></li>
+          <li><div class="blist__sub__dot"></div><div class="blist__sub__text">yet 85% agree brand investment drives results</div></li>
+        </ul>
+      </div></li>
+      <li class="step"><div class="blist__dot"></div><div class="blist__text">What's easy to measure may be what gets funded</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ F19 · KEY TAKEAWAYS ═══ -->
+<section class="slide s-content">
+  <div class="s-content__bar anim a1">UMM · Closing</div>
+  <div class="s-content__body">
+    <h2 class="s-content__heading anim a2">Key takeaways</h2>
+    <div class="titlerule anim a3"></div>
+    <div class="takeaways">
+      <div class="takeaway step"><div class="takeaway__num">1</div><div class="takeaway__text">Standard MMM data underdetermine both the model's <em>shape</em> and its causal <em>level</em>; experiments restore identification.</div></div>
+      <div class="takeaway step"><div class="takeaway__num">2</div><div class="takeaway__text">UMM: experiments enter the model as measurements of the same time-varying effectiveness, and uncertainty tells you when to test next.</div></div>
+      <div class="takeaway step"><div class="takeaway__num">3</div><div class="takeaway__text">Whether <em>one incrementality</em> spans the whole funnel is an open question, and measurement challenges may affect how firms invest in information.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ F20 · THANK YOU ═══ -->
+<section class="slide s-focus">
+  <p class="s-focus__text anim a1" style="font-size:56px; margin-bottom:8px;">Thank you!</p>
+  <p class="s-focus__sub anim a2" style="margin-bottom:0;">Questions? &nbsp;·&nbsp; ryandew@wharton.upenn.edu &nbsp;·&nbsp; www.rtdew.com</p>
+  <div class="qr-wrap anim a3">
+    <svg width="165" height="165" class="segno"><path transform="scale(5)" class="qrline" stroke="#011f5b" d="M4 4.5h7m1 0h2m1 0h2m1 0h1m1 0h1m1 0h7m-25 1h1m5 0h1m1 0h5m3 0h1m1 0h1m5 0h1m-25 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h2m4 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m4 0h1m1 0h1m4 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-25 1h1m5 0h1m3 0h4m4 0h1m5 0h1m-25 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-12 1h1m2 0h1m-17 1h1m2 0h6m1 0h3m1 0h4m2 0h1m1 0h3m-25 1h2m1 0h1m4 0h1m1 0h1m1 0h4m1 0h1m1 0h5m-23 1h2m1 0h1m1 0h1m2 0h5m1 0h1m2 0h2m1 0h1m2 0h1m-23 1h3m5 0h2m2 0h1m4 0h1m1 0h4m-25 1h5m1 0h3m1 0h2m3 0h2m1 0h1m5 0h1m-25 1h3m1 0h2m4 0h1m1 0h1m1 0h4m2 0h1m2 0h1m-24 1h2m3 0h6m2 0h6m1 0h5m-25 1h1m3 0h1m2 0h1m4 0h1m4 0h1m1 0h1m1 0h2m1 0h1m-25 1h1m1 0h1m2 0h2m2 0h1m1 0h2m1 0h7m1 0h2m-16 1h1m2 0h1m3 0h2m3 0h1m1 0h2m-24 1h7m1 0h2m2 0h3m1 0h1m1 0h1m1 0h1m3 0h1m-25 1h1m5 0h1m1 0h4m1 0h4m3 0h1m2 0h2m-25 1h1m1 0h3m1 0h1m1 0h4m1 0h1m1 0h6m2 0h2m-25 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m3 0h1m4 0h2m-25 1h1m1 0h3m1 0h1m2 0h3m1 0h1m1 0h1m1 0h1m2 0h5m-25 1h1m5 0h1m4 0h3m1 0h1m3 0h2m1 0h3m-25 1h7m1 0h1m2 0h3m2 0h2m3 0h1m2 0h1"/></svg>
+    <div class="qr-caption">rtdew.com — papers &amp; more</div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<div id="chrome">
+  <div id="dots"></div>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <div id="counter">1 / 20</div><!-- self-corrects at init -->
+  <button class="chrome-btn" onclick="window.print()" title="Print / Save PDF (flat handout)">&#128424;</button>
+  <button class="chrome-btn" onclick="printAnimated()" title="Print / Save PDF with builds — one page per reveal (Shift+P)">&#127902;</button>
+  <button class="chrome-btn" onclick="toggleFullscreen()" title="Fullscreen">&#10548;</button>
+</div>
+
+<script>
+/* ── NAVIGATION ─────────────────────────────────────────────── */
+let slides, dotsEl, counterEl, progressFill;
+let current = 0;
+
+function initDeck() {
+  slides       = document.querySelectorAll('.slide');
+  dotsEl       = document.getElementById('dots');
+  counterEl    = document.getElementById('counter');
+  progressFill = document.getElementById('progress-fill');
+  dotsEl.innerHTML = '';
+  current = 0;
+  slides[0].classList.add('active');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+  scaleDeck();
+  counterEl.textContent = '1 / ' + slides.length;
+}
+
+function goTo(n) {
+  if (n > current) {
+    const nextStep = slides[current].querySelector('.step:not(.visible)');
+    if (nextStep) { nextStep.classList.add('visible'); return; }
+  }
+  slides[current].querySelectorAll('.step.visible').forEach(s => s.classList.remove('visible'));
+  slides[current].classList.remove('active');
+  dotsEl.children[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  dotsEl.children[current].classList.add('active');
+  counterEl.textContent = (current + 1) + ' / ' + slides.length;
+  progressFill.style.width = ((current / (slides.length - 1)) * 100) + '%';
+}
+
+function scaleDeck() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight - 44;
+  const scale = Math.min(vw / 1280, vh / 720);
+  document.getElementById('deck').style.transform = 'scale(' + scale + ')';
+  document.getElementById('stage').style.bottom = '44px';
+}
+window.addEventListener('resize', scaleDeck);
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+    if (e.key === 'Escape') e.target.blur();
+    return;
+  }
+  switch (e.key) {
+    case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+      e.preventDefault(); goTo(current + 1); break;
+    case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+      e.preventDefault(); goTo(current - 1); break;
+    case 'f': case 'F': toggleFullscreen(); break;
+    case 'p': case 'P': if (e.shiftKey) { printAnimated(); } else { window.print(); } break;
+  }
+});
+
+/* ── ANIMATED PRINT — one page per reveal state (Beamer-style) ── */
+function printAnimated() {
+  const deck = document.getElementById('deck');
+  const frag = document.createDocumentFragment();
+  deck.querySelectorAll('.slide').forEach(sl => {
+    const n = sl.querySelectorAll('.step').length;
+    for (let k = 0; k <= n; k++) {
+      const c = sl.cloneNode(true);
+      c.classList.remove('active');
+      c.querySelectorAll('.step').forEach((s, i) => s.classList.toggle('visible', i < k));
+      frag.appendChild(c);
+    }
+  });
+  deck.innerHTML = '';
+  deck.appendChild(frag);
+  document.body.classList.add('print-animated');
+  window.print();
+  document.body.classList.remove('print-animated');
+  deck.innerHTML = PRISTINE_DECK;
+  initDeck();
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+document.addEventListener('fullscreenchange', scaleDeck);
+
+/* ── CLICK TO ADVANCE ────────────────────────────────────────── */
+document.addEventListener('click', e => {
+  if (e.target.closest('button, textarea, input, a, .dot, #chrome')) return;
+  if (window.getSelection && String(window.getSelection())) return;
+  goTo(current + 1);
+});
+
+/* ── INIT ────────────────────────────────────────────────────── */
+const PRISTINE_DECK = document.getElementById('deck').innerHTML;
+initDeck();
+</script>
+</body>
+</html>
